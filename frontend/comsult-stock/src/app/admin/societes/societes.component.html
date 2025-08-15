@@ -1,0 +1,180 @@
+<div class="societes-container p-6">
+  <!-- Header avec bouton d'ajout -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Gestion des Sociétés</h1>
+    <button 
+      (click)="showAdd()" 
+      class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+      <i class="fas fa-plus"></i>
+      Ajouter une société
+    </button>
+  </div>
+
+  <!-- Liste des sociétés -->
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full table-auto">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Adresse</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let societe of societes" class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {{ societe.id }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ societe.nom }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ societe.adresse }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+              <div class="flex justify-center gap-2">
+                <button 
+                  (click)="showDetail(societe)"
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button 
+                  (click)="showEdit(societe)"
+                  class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button 
+                  (click)="deleteSociete(societe.id!)"
+                  class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Card d'ajout -->
+  <div *ngIf="showAddCard" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Ajouter une société</h3>
+      </div>
+      <div class="px-6 py-4">
+        <form (ngSubmit)="saveSociete()">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Nom</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentSociete.nom" 
+              name="nom"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Adresse</label>
+            <textarea 
+              [(ngModel)]="currentSociete.adresse" 
+              name="adresse"
+              rows="3"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required></textarea>
+          </div>
+          <div class="flex justify-end gap-3">
+            <button 
+              type="button" 
+              (click)="hideAllCards()"
+              class="px-4 py-2 text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors">
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors">
+              Ajouter
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card de modification -->
+  <div *ngIf="showEditCard" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Modifier la société</h3>
+      </div>
+      <div class="px-6 py-4">
+        <form (ngSubmit)="saveSociete()">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Nom</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentSociete.nom" 
+              name="nom"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Adresse</label>
+            <textarea 
+              [(ngModel)]="currentSociete.adresse" 
+              name="adresse"
+              rows="3"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required></textarea>
+          </div>
+          <div class="flex justify-end gap-3">
+            <button 
+              type="button" 
+              (click)="hideAllCards()"
+              class="px-4 py-2 text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors">
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded transition-colors">
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card de détail -->
+  <div *ngIf="showDetailCard && selectedSociete" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Détails de la société</h3>
+      </div>
+      <div class="px-6 py-4">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">ID</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedSociete.id }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Nom</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedSociete.nom }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Adresse</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedSociete.adresse }}</p>
+          </div>
+        </div>
+        <div class="flex justify-end mt-6">
+          <button 
+            (click)="hideAllCards()"
+            class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors">
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

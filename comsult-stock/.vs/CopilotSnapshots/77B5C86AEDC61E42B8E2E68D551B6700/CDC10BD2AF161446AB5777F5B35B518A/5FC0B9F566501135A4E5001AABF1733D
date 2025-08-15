@@ -1,0 +1,98 @@
+﻿using comsult_stock.DTOs;
+using comsult_stock.Models;
+using consult_stock.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace consult_stock.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize] // Admin only access
+    public class VentesController : ControllerBase
+    {
+        private readonly VenteService _venteService;
+
+        public VentesController(VenteService venteService)
+        {
+            _venteService = venteService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var ventes = await _venteService.GetAllAsync();
+            return Ok(ventes);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var vente = await _venteService.GetByIdAsync(id);
+            if (vente == null) return NotFound();
+            return Ok(vente);
+        }
+
+        [HttpGet("societe/{societeId}")]
+        public async Task<IActionResult> GetBySocieteId(int societeId)
+        {
+            var ventes = await _venteService.GetBySocieteIdAsync(societeId);
+            return Ok(ventes);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateVenteDto dto)
+        {
+            try
+            {
+                var vente = new Vente
+                {
+                    SocieteId = dto.SocieteId,
+                    Article = dto.Article,
+                    Lot = dto.Lot,
+                    QteVendu = dto.QteVendu,
+                    Date = dto.Date
+                };
+
+                var created = await _venteService.CreateAsync(vente);
+                return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateVenteDto dto)
+        {
+            try
+            {
+                var vente = new Vente
+                {
+                    SocieteId = dto.SocieteId,
+                    Article = dto.Article,
+                    Lot = dto.Lot,
+                    QteVendu = dto.QteVendu,
+                    Date = dto.Date
+                };
+
+                var updated = await _venteService.UpdateAsync(id, vente);
+                if (updated == null) return NotFound();
+                return Ok(updated);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _venteService.DeleteAsync(id);
+            if (!deleted) return NotFound();
+            return NoContent();
+        }
+    }
+}

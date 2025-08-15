@@ -1,0 +1,395 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\services\\articleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\services\\articleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\controllers\\articlescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\controllers\\articlescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\controllers\\stockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\controllers\\stockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\controllers\\ventescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\controllers\\ventescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\controllers\\lotscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\controllers\\lotscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\dtos\\ticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\dtos\\ticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\controllers\\societescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\controllers\\societescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\models\\stock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\models\\stock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\models\\societe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\models\\societe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\models\\article.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\models\\article.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\dtos\\createsocietedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\dtos\\createsocietedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\dtos\\createarticledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\dtos\\createarticledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\controllers\\vendeurscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\controllers\\vendeurscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\controllers\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\controllers\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\controllers\\administrateurscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\controllers\\administrateurscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\models\\administrateur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\models\\administrateur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\models\\vente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\models\\vente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\dtos\\updateventedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\dtos\\updateventedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\dtos\\createventedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\dtos\\createventedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\models\\ticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\models\\ticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\dtos\\updatestockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\dtos\\updatestockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|c:\\users\\malek.jendoubi\\desktop\\nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\dtos\\createstockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\dtos\\createstockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 238,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ArticleService.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Services\\ArticleService.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Services\\ArticleService.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Services\\ArticleService.cs",
+              "RelativeToolTip": "comsult-stock\\Services\\ArticleService.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAwwAwAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T12:43:25.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ArticlesController.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\ArticlesController.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Controllers\\ArticlesController.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\ArticlesController.cs",
+              "RelativeToolTip": "comsult-stock\\Controllers\\ArticlesController.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAArwAoAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:08:29.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LotsController.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\LotsController.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Controllers\\LotsController.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\LotsController.cs",
+              "RelativeToolTip": "comsult-stock\\Controllers\\LotsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:28:15.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StocksController.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\StocksController.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Controllers\\StocksController.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\StocksController.cs",
+              "RelativeToolTip": "comsult-stock\\Controllers\\StocksController.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAowDoAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:29:42.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "VentesController.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\VentesController.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Controllers\\VentesController.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\VentesController.cs",
+              "RelativeToolTip": "comsult-stock\\Controllers\\VentesController.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAkwCoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:55:06.425Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TicketDto.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\TicketDto.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\DTOs\\TicketDto.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\TicketDto.cs",
+              "RelativeToolTip": "comsult-stock\\DTOs\\TicketDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T12:40:03.846Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SocietesController.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\SocietesController.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Controllers\\SocietesController.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\SocietesController.cs",
+              "RelativeToolTip": "comsult-stock\\Controllers\\SocietesController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAzwAkAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:29:12.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Program.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Program.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Program.cs",
+              "RelativeToolTip": "comsult-stock\\Program.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAAwEAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:09:42.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Societe.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Societe.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Models\\Societe.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Societe.cs",
+              "RelativeToolTip": "comsult-stock\\Models\\Societe.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:57:18.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Stock.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Stock.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Models\\Stock.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Stock.cs",
+              "RelativeToolTip": "comsult-stock\\Models\\Stock.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:52:59.289Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CreateArticleDto.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\CreateArticleDto.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\DTOs\\CreateArticleDto.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\CreateArticleDto.cs",
+              "RelativeToolTip": "comsult-stock\\DTOs\\CreateArticleDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:57:08.214Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CreateSocieteDto.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\CreateSocieteDto.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\DTOs\\CreateSocieteDto.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\CreateSocieteDto.cs",
+              "RelativeToolTip": "comsult-stock\\DTOs\\CreateSocieteDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:57:11.888Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Article.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Article.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Models\\Article.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Article.cs",
+              "RelativeToolTip": "comsult-stock\\Models\\Article.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:57:16.234Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "AdministrateursController.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\AdministrateursController.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Controllers\\AdministrateursController.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\AdministrateursController.cs",
+              "RelativeToolTip": "comsult-stock\\Controllers\\AdministrateursController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwCkAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:05:44.41Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "TicketsController.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\TicketsController.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Controllers\\TicketsController.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\TicketsController.cs",
+              "RelativeToolTip": "comsult-stock\\Controllers\\TicketsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:53:32.209Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "VendeursController.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\VendeursController.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Controllers\\VendeursController.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Controllers\\VendeursController.cs",
+              "RelativeToolTip": "comsult-stock\\Controllers\\VendeursController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:53:42.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Administrateur.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Administrateur.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Models\\Administrateur.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Administrateur.cs",
+              "RelativeToolTip": "comsult-stock\\Models\\Administrateur.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T09:25:39.267Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Vente.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Vente.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Models\\Vente.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Vente.cs",
+              "RelativeToolTip": "comsult-stock\\Models\\Vente.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:55:22.422Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "CreateVenteDto.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\CreateVenteDto.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\DTOs\\CreateVenteDto.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\CreateVenteDto.cs",
+              "RelativeToolTip": "comsult-stock\\DTOs\\CreateVenteDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:53:48.709Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Ticket.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Ticket.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Models\\Ticket.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\Models\\Ticket.cs",
+              "RelativeToolTip": "comsult-stock\\Models\\Ticket.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:53:52.478Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "UpdateStockDto.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\UpdateStockDto.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\DTOs\\UpdateStockDto.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\UpdateStockDto.cs",
+              "RelativeToolTip": "comsult-stock\\DTOs\\UpdateStockDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:52:53.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "UpdateVenteDto.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\UpdateVenteDto.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\DTOs\\UpdateVenteDto.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\UpdateVenteDto.cs",
+              "RelativeToolTip": "comsult-stock\\DTOs\\UpdateVenteDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:55:15.657Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "CreateStockDto.cs",
+              "DocumentMoniker": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\CreateStockDto.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\DTOs\\CreateStockDto.cs",
+              "ToolTip": "C:\\Users\\malek.jendoubi\\Desktop\\Nouveau dossier (2)\\consult_stock-main\\comsult-stock\\comsult-stock\\DTOs\\CreateStockDto.cs",
+              "RelativeToolTip": "comsult-stock\\DTOs\\CreateStockDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T08:52:45.074Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

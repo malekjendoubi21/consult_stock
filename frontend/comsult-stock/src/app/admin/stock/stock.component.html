@@ -1,0 +1,292 @@
+<div class="stock-container p-6">
+  <!-- Header avec bouton d'ajout -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Gestion du Stock</h1>
+    <button 
+      (click)="showAdd()" 
+      class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+      <i class="fas fa-plus"></i>
+      Ajouter au stock
+    </button>
+  </div>
+
+  <!-- Liste des stocks -->
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full table-auto">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Société</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code Barre</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">N° Lot</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qté Dispo</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix TTC</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let stock of stocks" class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {{ stock.id }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ getSocieteNom(stock.societeId) }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ stock.codeBarre }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ stock.numLot }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ stock.qteDispo }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ stock.prixTTC | currency:'EUR':'symbol':'1.2-2' }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+              <div class="flex justify-center gap-2">
+                <button 
+                  (click)="showDetail(stock)"
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button 
+                  (click)="showEdit(stock)"
+                  class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button 
+                  (click)="deleteStock(stock.id!)"
+                  class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Card d'ajout -->
+  <div *ngIf="showAddCard" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Ajouter au stock</h3>
+      </div>
+      <div class="px-6 py-4">
+        <form (ngSubmit)="saveStock()">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Société</label>
+            <select 
+              [(ngModel)]="currentStock.societeId" 
+              name="societeId"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+              <option value="0">Sélectionner une société</option>
+              <option *ngFor="let societe of societes" [value]="societe.id">
+                {{ societe.nom }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Code Barre</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentStock.codeBarre" 
+              name="codeBarre"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Numéro de Lot</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentStock.numLot" 
+              name="numLot"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Quantité Disponible</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentStock.qteDispo" 
+              name="qteDispo"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Prix TTC</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentStock.prixTTC" 
+              name="prixTTC"
+              step="0.01"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Date d'Expiration</label>
+            <input 
+              type="date" 
+              [(ngModel)]="currentStock.dateExpiration" 
+              name="dateExpiration"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="flex justify-end gap-3">
+            <button 
+              type="button" 
+              (click)="hideAllCards()"
+              class="px-4 py-2 text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors">
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors">
+              Ajouter
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card de modification (similaire à celle d'ajout mais avec titre et bouton différents) -->
+  <div *ngIf="showEditCard" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Modifier le stock</h3>
+      </div>
+      <div class="px-6 py-4">
+        <form (ngSubmit)="saveStock()">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Société</label>
+            <select 
+              [(ngModel)]="currentStock.societeId" 
+              name="societeId"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+              <option value="0">Sélectionner une société</option>
+              <option *ngFor="let societe of societes" [value]="societe.id">
+                {{ societe.nom }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Code Barre</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentStock.codeBarre" 
+              name="codeBarre"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Numéro de Lot</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentStock.numLot" 
+              name="numLot"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Quantité Disponible</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentStock.qteDispo" 
+              name="qteDispo"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Prix TTC</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentStock.prixTTC" 
+              name="prixTTC"
+              step="0.01"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Date d'Expiration</label>
+            <input 
+              type="date" 
+              [(ngModel)]="currentStock.dateExpiration" 
+              name="dateExpiration"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="flex justify-end gap-3">
+            <button 
+              type="button" 
+              (click)="hideAllCards()"
+              class="px-4 py-2 text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors">
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded transition-colors">
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card de détail -->
+  <div *ngIf="showDetailCard && selectedStock" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Détails du stock</h3>
+      </div>
+      <div class="px-6 py-4">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">ID</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedStock.id }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Société</label>
+            <p class="mt-1 text-sm text-gray-900">{{ getSocieteNom(selectedStock.societeId) }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Code Barre</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedStock.codeBarre }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Numéro de Lot</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedStock.numLot }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Quantité Disponible</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedStock.qteDispo }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Prix TTC</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedStock.prixTTC | currency:'EUR':'symbol':'1.2-2' }}</p>
+          </div>
+          <div *ngIf="selectedStock.dateExpiration">
+            <label class="block text-sm font-medium text-gray-700">Date d'Expiration</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedStock.dateExpiration | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+        <div class="flex justify-end mt-6">
+          <button 
+            (click)="hideAllCards()"
+            class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors">
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

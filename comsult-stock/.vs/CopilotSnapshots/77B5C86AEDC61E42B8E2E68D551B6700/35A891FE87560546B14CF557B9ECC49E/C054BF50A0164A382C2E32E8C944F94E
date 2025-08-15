@@ -1,0 +1,8 @@
+﻿namespace comsult_stock.Models
+{
+    public class Ticket
+    {
+        public int Id { get; set; }
+        public string CodeBarre { get; set; } = string.Empty;
+    }
+}

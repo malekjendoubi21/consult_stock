@@ -1,0 +1,280 @@
+/* Styles pour la sidebar moderne */
+.border-r-3 {
+  border-right-width: 3px;
+}
+
+/* Animation pour les icônes dans la navigation */
+.group:hover .fa-chart-line,
+.group:hover .fa-cube,
+.group:hover .fa-layer-group,
+.group:hover .fa-warehouse,
+.group:hover .fa-shopping-cart,
+.group:hover .fa-building,
+.group:hover .fa-users,
+.group:hover .fa-user-cog {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Scrollbar personnalisé pour la sidebar */
+nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Style pour les éléments actifs */
+a[routerLinkActive] {
+  position: relative;
+}
+
+/* Animation de l'indicateur actif */
+a.bg-blue-50 {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+  box-shadow: inset 3px 0 0 #3b82f6;
+}
+
+/* Header moderne */
+header {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Animation du bouton de déconnexion */
+.group .fa-sign-out-alt {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Style pour la barre de recherche */
+input[type="text"]:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: white;
+}
+
+input[type="text"]:hover {
+  border-color: #9ca3af;
+}
+
+/* Animation pour les notifications */
+.fa-bell:hover {
+  animation: bell-ring 0.5s ease-in-out;
+}
+
+@keyframes bell-ring {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  75% { transform: rotate(-15deg); }
+}
+
+/* Style pour le logo */
+.bg-gradient-to-r {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Hover effects pour les liens de navigation */
+.group:hover {
+  transform: translateX(2px);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Animation pour les sections de navigation */
+.space-y-1 > li {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Style pour les titres de section */
+h3.text-xs {
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+/* Améliorations du design light mode */
+.sidebar-section {
+  position: relative;
+}
+
+.sidebar-section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, #e5e7eb, transparent);
+}
+
+/* Style pour le bouton de notification */
+button:hover .fa-bell {
+  color: #3b82f6 !important;
+}
+
+/* Style pour l'avatar utilisateur */
+.user-avatar {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  nav {
+    width: 16rem; /* w-64 */
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    width: 14rem; /* w-56 */
+  }
+  
+  header .w-64 {
+    width: 12rem;
+  }
+  
+  .px-8 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Style pour le contenu principal */
+main {
+  min-height: 0; /* Pour permettre le scroll */
+  background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+}
+
+/* Animation d'entrée pour la sidebar */
+nav {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Style pour les tooltips (si nécessaire) */
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1f2937;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  margin-left: 0.5rem;
+  z-index: 10;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+}
+
+/* Style pour les badges de notification */
+.notification-badge {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Effet de survol pour la sidebar */
+nav:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* Style pour les sections de navigation */
+.nav-section {
+  position: relative;
+}
+
+.nav-section:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+}
+
+/* Animation pour les éléments de menu */
+nav ul li {
+  position: relative;
+  overflow: hidden;
+}
+
+nav ul li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+nav ul li:hover::before {
+  left: 100%;
+}
+
+/* Style amélioré pour les inputs */
+input[type="text"] {
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Animation pour le titre de page */
+header h2 {
+  animation: slideInDown 0.5s ease-out;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

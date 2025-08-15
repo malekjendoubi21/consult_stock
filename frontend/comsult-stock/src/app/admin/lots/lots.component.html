@@ -1,0 +1,216 @@
+<div class="lots-container p-6">
+  <!-- Header avec bouton d'ajout -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Gestion des Lots</h1>
+    <button 
+      (click)="showAdd()" 
+      class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+      <i class="fas fa-plus"></i>
+      Ajouter un lot
+    </button>
+  </div>
+
+  <!-- Liste des lots -->
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full table-auto">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Article</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code Article</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantité</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let lot of lots" class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {{ lot.id }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ getArticleName(lot.articleId) }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ lot.articleCode }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ lot.quantiteDisponible }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+              <div class="flex justify-center gap-2">
+                <button 
+                  (click)="showDetail(lot)"
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button 
+                  (click)="showEdit(lot)"
+                  class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button 
+                  (click)="deleteLot(lot.id!)"
+                  class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Card d'ajout -->
+  <div *ngIf="showAddCard" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Ajouter un lot</h3>
+      </div>
+      <div class="px-6 py-4">
+        <form (ngSubmit)="saveLot()">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Article</label>
+            <select 
+              [(ngModel)]="currentLot.articleId" 
+              name="articleId"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+              <option value="0">Sélectionner un article</option>
+              <option *ngFor="let article of articles" [value]="article.id">
+                {{ article.nom }} ({{ article.codeArticle }})
+              </option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Code Article</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentLot.articleCode" 
+              name="articleCode"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Quantité Disponible</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentLot.quantiteDisponible" 
+              name="quantiteDisponible"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="flex justify-end gap-3">
+            <button 
+              type="button" 
+              (click)="hideAllCards()"
+              class="px-4 py-2 text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors">
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors">
+              Ajouter
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card de modification -->
+  <div *ngIf="showEditCard" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Modifier le lot</h3>
+      </div>
+      <div class="px-6 py-4">
+        <form (ngSubmit)="saveLot()">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Article</label>
+            <select 
+              [(ngModel)]="currentLot.articleId" 
+              name="articleId"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+              <option value="0">Sélectionner un article</option>
+              <option *ngFor="let article of articles" [value]="article.id">
+                {{ article.nom }} ({{ article.codeArticle }})
+              </option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Code Article</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentLot.articleCode" 
+              name="articleCode"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Quantité Disponible</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentLot.quantiteDisponible" 
+              name="quantiteDisponible"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="flex justify-end gap-3">
+            <button 
+              type="button" 
+              (click)="hideAllCards()"
+              class="px-4 py-2 text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors">
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded transition-colors">
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card de détail -->
+  <div *ngIf="showDetailCard && selectedLot" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Détails du lot</h3>
+      </div>
+      <div class="px-6 py-4">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">ID</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedLot.id }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Article</label>
+            <p class="mt-1 text-sm text-gray-900">{{ getArticleName(selectedLot.articleId) }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Code Article</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedLot.articleCode }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Quantité Disponible</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedLot.quantiteDisponible }}</p>
+          </div>
+        </div>
+        <div class="flex justify-end mt-6">
+          <button 
+            (click)="hideAllCards()"
+            class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors">
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

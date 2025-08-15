@@ -1,0 +1,168 @@
+<div class="p-8 max-w-7xl mx-auto space-y-16">
+
+  <!-- Admins Section -->
+  <section>
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-6">
+      <h2 class="text-4xl font-extrabold text-gray-900 border-b-4 border-blue-600 pb-1">Administrateurs</h2>
+      <button
+        (click)="showAdminForm = !showAdminForm"
+        class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-600 transition"
+      >
+        {{ showAdminForm ? 'Annuler' : 'Ajouter un administrateur' }}
+      </button>
+    </div>
+
+    <!-- Formulaire ajout admin -->
+    <div *ngIf="showAdminForm" class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200 mb-12">
+      <h3 class="text-2xl font-semibold mb-8 text-gray-800">Nouvel Administrateur</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <input [(ngModel)]="newAdmin.nom" placeholder="Nom"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+        <input [(ngModel)]="newAdmin.login" placeholder="Login"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+        <input [(ngModel)]="newAdmin.motDePasse" placeholder="Mot de passe" type="password"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+      </div>
+      <div class="mt-8 flex justify-end">
+        <button (click)="addAdmin()"
+                class="bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 shadow-lg transition">
+          Enregistrer
+        </button>
+      </div>
+    </div>
+
+    <!-- Table admins -->
+    <div class="overflow-x-auto rounded-2xl shadow-lg border border-gray-300">
+      <table class="min-w-full border-collapse">
+        <thead class="bg-blue-600 text-white sticky top-0">
+        <tr>
+          <th class="px-6 py-4 text-left font-semibold">Nom</th>
+          <th class="px-6 py-4 text-left font-semibold">Login</th>
+          <th class="px-6 py-4 text-center font-semibold">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="bg-white text-gray-700">
+        <tr *ngFor="let admin of admins" class="hover:bg-blue-50 transition">
+          <td class="px-6 py-4">{{ admin.nom }}</td>
+          <td class="px-6 py-4">{{ admin.login }}</td>
+          <td class="px-6 py-4 text-center flex justify-center gap-4">
+            <button (click)="editAdmin(admin)"
+                    class="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition shadow">
+              Modifier
+            </button>
+            <button (click)="deleteAdmin(admin.id)"
+                    class="px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition shadow">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modifier admin -->
+    <div *ngIf="editingAdmin" class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200 mt-12">
+      <h3 class="text-2xl font-semibold mb-8 text-gray-800">Modifier Administrateur</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <input [(ngModel)]="editingAdmin.nom" placeholder="Nom"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+        <input [(ngModel)]="editingAdmin.login" placeholder="Login"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+        <input [(ngModel)]="editingAdmin.motDePasse" placeholder="Nouveau mot de passe" type="password"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+      </div>
+      <div class="mt-8 flex gap-6 justify-end">
+        <button (click)="updateAdmin()"
+                class="bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 shadow-lg transition">
+          Mettre à jour
+        </button>
+        <button (click)="editingAdmin = null"
+                class="px-8 py-3 border border-gray-400 rounded-xl hover:bg-gray-100 transition">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vendeurs Section -->
+  <section>
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-6">
+      <h2 class="text-4xl font-extrabold text-gray-900 border-b-4 border-blue-600 pb-1">Vendeurs</h2>
+      <button (click)="showVendeurForm = !showVendeurForm"
+              class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-600 transition">
+        {{ showVendeurForm ? 'Annuler' : 'Ajouter un vendeur' }}
+      </button>
+    </div>
+
+    <!-- Formulaire ajout vendeur -->
+    <div *ngIf="showVendeurForm" class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200 mb-12">
+      <h3 class="text-2xl font-semibold mb-8 text-gray-800">Nouveau Vendeur</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <input [(ngModel)]="newVendeur.nom" placeholder="Nom"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+        <input [(ngModel)]="newVendeur.email" placeholder="Email"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+        <input [(ngModel)]="newVendeur.passwordHash" placeholder="Mot de passe" type="password"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+      </div>
+      <div class="mt-8 flex justify-end">
+        <button (click)="addVendeur()"
+                class="bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 shadow-lg transition">
+          Enregistrer
+        </button>
+      </div>
+    </div>
+
+    <!-- Table vendeurs -->
+    <div class="overflow-x-auto rounded-2xl shadow-lg border border-gray-300">
+      <table class="min-w-full border-collapse">
+        <thead class="bg-blue-600 text-white sticky top-0">
+        <tr>
+          <th class="px-6 py-4 text-left font-semibold">Nom</th>
+          <th class="px-6 py-4 text-left font-semibold">Email</th>
+          <th class="px-6 py-4 text-center font-semibold">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="bg-white text-gray-700">
+        <tr *ngFor="let vendeur of vendeurs" class="hover:bg-blue-50 transition">
+          <td class="px-6 py-4">{{ vendeur.nom }}</td>
+          <td class="px-6 py-4">{{ vendeur.email }}</td>
+          <td class="px-6 py-4 text-center flex justify-center gap-4">
+            <button (click)="editVendeur(vendeur)"
+                    class="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition shadow">
+              Modifier
+            </button>
+            <button (click)="deleteVendeur(vendeur.id!)"
+                    class="px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition shadow">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modifier vendeur -->
+    <div *ngIf="editingVendeur" class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200 mt-12">
+      <h3 class="text-2xl font-semibold mb-8 text-gray-800">Modifier Vendeur</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <input [(ngModel)]="editingVendeur.nom" placeholder="Nom"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+        <input [(ngModel)]="editingVendeur.email" placeholder="Email"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+        <input [(ngModel)]="editingVendeur.passwordHash" placeholder="Nouveau mot de passe" type="password"
+               class="border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-400 transition" />
+      </div>
+      <div class="mt-8 flex gap-6 justify-end">
+        <button (click)="updateVendeur()"
+                class="bg-green-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-700 shadow-lg transition">
+          Mettre à jour
+        </button>
+        <button (click)="editingVendeur = null"
+                class="px-8 py-3 border border-gray-400 rounded-xl hover:bg-gray-100 transition">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
