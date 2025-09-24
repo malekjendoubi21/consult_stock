@@ -1,0 +1,57 @@
+using Microsoft.AspNetCore.Mvc;
+
+namespace consult_stock.Controllers
+{
+    [ApiController]
+    [Route("api")]
+    [Tags("ApiInfo")]
+    public class ApiInfoController : ControllerBase
+    {
+        /// <summary>
+        /// Informations sur l'API
+        /// </summary>
+        /// <returns>Informations générales sur l'API</returns>
+        [HttpGet("info")]
+        [ProducesResponseType(200)]
+        public IActionResult GetApiInfo()
+        {
+            return Ok(new
+            {
+                name = "Consult Stock API",
+                version = "v1.0",
+                description = "API de gestion de stock pour les sociétés",
+                endpoints = new
+                {
+                    swagger = "/swagger",
+                    health = "/api/health"
+                },
+                features = new[]
+                {
+                    "Gestion des articles",
+                    "Gestion des lots",
+                    "Gestion des stocks",
+                    "Gestion des ventes",
+                    "Gestion des sociétés",
+                    "Authentification JWT",
+                    "Autorisation par rôles"
+                }
+            });
+        }
+
+        /// <summary>
+        /// Vérification de l'état de l'API
+        /// </summary>
+        /// <returns>État de santé de l'API</returns>
+        [HttpGet("health")]
+        [ProducesResponseType(200)]
+        public IActionResult HealthCheck()
+        {
+            return Ok(new
+            {
+                status = "healthy",
+                timestamp = DateTime.UtcNow,
+                environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"
+            });
+        }
+    }
+}

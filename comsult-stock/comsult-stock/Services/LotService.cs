@@ -1,0 +1,112 @@
+using comsult_stock.Models;
+using comsult_stock.DTOs;
+using consult_stock.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace consult_stock.Services
+{
+    public class LotService
+    {
+        private readonly AppDbContext _context;
+
+        public LotService(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Lot>> GetAllAsync()
+        {
+            return await _context.Lots
+                .Include(l => l.Article)
+                .ToListAsync();
+        }
+
+        public async Task<Lot?> GetByIdAsync(int id)
+        {
+            return await _context.Lots
+                .Include(l => l.Article)
+                .FirstOrDefaultAsync(l => l.Id == id);
+        }
+
+        public async Task<IEnumerable<Lot>> GetByArticleIdAsync(int articleId)
+        {
+            return await _context.Lots
+                .Include(l => l.Article)
+                .Where(l => l.ArticleId == articleId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<LotSelectDto>> GetLotsForSelectAsync(int articleId)
+        {
+            return await _context.Lots
+                .Include(l => l.Article)
+                .Where(l => l.ArticleId == articleId && l.QuantiteDisponible > 0)
+                .Select(l => new LotSelectDto
+                {
+                    Id = l.Id,
+                    NumLot = l.NumLot,
+                    QuantiteDisponible = l.QuantiteDisponible,
+                    DateExpiration = l.DateExpiration,
+                    PrixUnitaire = l.PrixUnitaire,
+                    ArticleId = l.ArticleId,
+                    ArticleName = l.Article.Nom
+                })
+                .ToListAsync();
+        }
+
+        public async Task<Lot> CreateAsync(Lot lot)
+        {
+            // Vérifier que l'article existe
+            var articleExists = await _context.Articles.AnyAsync(a => a.Id == lot.ArticleId);
+            if (!articleExists)
+                throw new ArgumentException("Article introuvable.");
+
+            _context.Lots.Add(lot);
+            await _context.SaveChangesAsync();
+            return lot;
+        }
+
+        public async Task<Lot?> UpdateAsync(int id, Lot lot)
+        {
+            var existing = await _context.Lots.FindAsync(id);
+            if (existing == null) return null;
+
+            // Vérifier que l'article existe si on change l'ArticleId
+            if (existing.ArticleId != lot.ArticleId)
+            {
+                var articleExists = await _context.Articles.AnyAsync(a => a.Id == lot.ArticleId);
+                if (!articleExists)
+                    throw new ArgumentException("Article introuvable.");
+            }
+
+            existing.ArticleId = lot.ArticleId;
+            existing.NumLot = lot.NumLot;
+            existing.QuantiteDisponible = lot.QuantiteDisponible;
+            existing.DateExpiration = lot.DateExpiration;
+            existing.PrixUnitaire = lot.PrixUnitaire;
+
+            await _context.SaveChangesAsync();
+            return existing;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var lot = await _context.Lots.FindAsync(id);
+            if (lot == null) return false;
+
+            _context.Lots.Remove(lot);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateQuantiteAsync(int lotId, int nouvelleQuantite)
+        {
+            var lot = await _context.Lots.FindAsync(lotId);
+            if (lot == null) return false;
+
+            lot.QuantiteDisponible = nouvelleQuantite;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+    }
+}

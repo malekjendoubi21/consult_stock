@@ -1,0 +1,111 @@
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-700 via-blue-800 to-gray-900">
+  <div class="bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl w-full max-w-md border border-white/20">
+    <h2 class="text-3xl font-bold text-white text-center mb-6">
+      {{ isLoginMode ? 'Connexion' : isForgotMode ? 'Mot de passe oublié' : isResetMode ? 'Réinitialiser le mot de passe' : 'Inscription' }}
+    </h2>
+
+    <!-- Formulaire -->
+    <form *ngIf="!isForgotMode && !isResetMode" [formGroup]="isLoginMode ? loginForm : registerForm" (ngSubmit)="isLoginMode ? onLogin() : onRegister()" class="space-y-5">
+      <!-- Nom (Seulement inscription) -->
+      <div *ngIf="!isLoginMode">
+        <label class="block text-white mb-2 font-medium">Nom</label>
+        <input formControlName="nom" placeholder="Votre nom"
+               class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-white mb-2 font-medium">Email</label>
+        <input type="email" formControlName="email" placeholder="Votre email"
+               class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <!-- Mot de passe -->
+      <div>
+        <label class="block text-white mb-2 font-medium">Mot de passe</label>
+        <input type="password" formControlName="password" placeholder="Votre mot de passe"
+               class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <!-- Bouton -->
+      <button type="submit"
+              class="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg transition duration-300">
+        {{ isLoginMode ? 'Se connecter' : 'Créer un compte' }}
+      </button>
+    </form>
+
+    <!-- Message d'erreur -->
+    <p *ngIf="errorMessage && !isForgotMode && !isResetMode" class="text-red-400 text-center mt-4">{{ errorMessage }}</p>
+
+    <!-- Formulaire mot de passe oublié -->
+    <form *ngIf="isForgotMode" [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPassword()" class="space-y-5">
+      <div>
+        <label class="block text-white mb-2 font-medium">Email</label>
+        <input type="email" formControlName="email" placeholder="Votre email"
+               class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <button type="submit"
+              class="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg transition duration-300">
+        Envoyer le code de réinitialisation
+      </button>
+    </form>
+
+    <!-- Message d'erreur -->
+    <p *ngIf="errorMessage && isForgotMode" class="text-red-400 text-center mt-4">{{ errorMessage }}</p>
+
+    <!-- Formulaire réinitialiser mot de passe -->
+    <form *ngIf="isResetMode" [formGroup]="resetPasswordForm" (ngSubmit)="onResetPassword()" class="space-y-5">
+      <div>
+        <label class="block text-white mb-2 font-medium">Email</label>
+        <input type="email" formControlName="email" placeholder="Votre email"
+               class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <div>
+        <label class="block text-white mb-2 font-medium">Code de réinitialisation</label>
+        <input formControlName="resetCode" placeholder="Code reçu par email"
+               class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <div>
+        <label class="block text-white mb-2 font-medium">Nouveau mot de passe</label>
+        <input type="password" formControlName="newPassword" placeholder="Nouveau mot de passe"
+               class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <button type="submit"
+              class="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-lg transition duration-300">
+        Réinitialiser le mot de passe
+      </button>
+    </form>
+
+    <!-- Message d'erreur -->
+    <p *ngIf="errorMessage && isResetMode" class="text-red-400 text-center mt-4">{{ errorMessage }}</p>
+
+    <!-- Toggle login/register -->
+    <p *ngIf="!isForgotMode && !isResetMode" class="text-gray-300 text-center mt-6">
+      {{ isLoginMode ? "Pas encore de compte ?" : "Déjà un compte ?" }}
+      <button type="button" (click)="toggleMode(isLoginMode ? 'register' : 'login')"
+              class="text-blue-400 hover:underline">
+        {{ isLoginMode ? "S'inscrire" : "Se connecter" }}
+      </button>
+    </p>
+
+    <!-- Lien mot de passe oublié -->
+    <p *ngIf="isLoginMode && !isForgotMode && !isResetMode" class="text-gray-300 text-center mt-4">
+      <button type="button" (click)="toggleMode('forgot')"
+              class="text-blue-400 hover:underline">
+        Mot de passe oublié ?
+      </button>
+    </p>
+
+    <!-- Retour à la connexion -->
+    <p *ngIf="isForgotMode || isResetMode" class="text-gray-300 text-center mt-4">
+      <button type="button" (click)="toggleMode('login')"
+              class="text-blue-400 hover:underline">
+        Retour à la connexion
+      </button>
+    </p>
+  </div>
+</div>

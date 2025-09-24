@@ -1,0 +1,67 @@
+﻿using consult_stock.Data;
+using consult_stock.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// 1. Ajouter le DbContext (connexion à la base de données)
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+// 2. Ajouter la politique CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+var keyString = builder.Configuration["Jwt:Key"];
+if (string.IsNullOrEmpty(keyString))
+    throw new Exception("Clé JWT introuvable dans appsettings.json !");
+var key = Encoding.UTF8.GetBytes(keyString);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+    });
+
+// 3. Ajouter les contrôleurs et Swagger
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<VendeurService>();
+builder.Services.AddScoped<AdministrateurService>();
+
+var app = builder.Build();
+
+// 4. Middleware pipeline
+//app.UseSwagger();
+//app.UseSwaggerUI();
+
+app.UseHttpsRedirection();
+
+// **Activer CORS avant l’authentification**
+app.UseCors("AllowAngularDev");
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();

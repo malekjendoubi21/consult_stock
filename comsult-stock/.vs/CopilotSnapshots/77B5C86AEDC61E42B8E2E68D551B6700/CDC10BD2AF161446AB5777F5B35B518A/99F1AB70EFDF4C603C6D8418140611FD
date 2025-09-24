@@ -1,0 +1,7 @@
+﻿namespace comsult_stock.DTOs
+{
+    public class CreateUserDto
+    {
+        public string Role { get; set; } = string.Empty;
+    }
+}

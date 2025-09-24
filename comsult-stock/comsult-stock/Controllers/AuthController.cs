@@ -1,0 +1,301 @@
+﻿using consult_stock.DTOs;
+using consult_stock.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+namespace consult_stock.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Tags("Authentication")]
+    public class AuthController : ControllerBase
+    {
+        private readonly VendeurService _vendeurService;
+        private readonly IConfiguration _config;
+
+        public AuthController(VendeurService vendeurService, IConfiguration config)
+        {
+            _vendeurService = vendeurService;
+            _config = config;
+        }
+
+        /// <summary>
+        /// Inscription d'un nouveau vendeur
+        /// </summary>
+        /// <param name="dto">Données d'inscription</param>
+        /// <returns>Informations du vendeur créé</returns>
+        [HttpPost("register")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> Register(RegisterVendeurDto dto)
+        {
+            try
+            {
+                var vendeur = await _vendeurService.RegisterAsync(dto.Nom, dto.Email, dto.Password);
+                return Ok(new { vendeur.Id, vendeur.Nom, vendeur.Email, vendeur.Role });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Connexion d'un vendeur
+        /// </summary>
+        /// <param name="dto">Identifiants de connexion</param>
+        /// <returns>Token JWT</returns>
+        [HttpPost("login")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> Login(LoginVendeurDto dto)
+        {
+            try
+            {
+                var vendeur = await _vendeurService.LoginAsync(dto.Email, dto.Password);
+                var token = GenerateJwtToken(vendeur);
+                return Ok(new { 
+                    token,
+                    vendeur = new { vendeur.Id, vendeur.Nom, vendeur.Email, vendeur.Role }
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Récupère le profil du vendeur connecté
+        /// </summary>
+        /// <returns>Informations du profil</returns>
+        [Authorize]
+        [HttpGet("profile")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Profile()
+        {
+            try
+            {
+                // Récupère l'email à partir du token
+                var email = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(email))
+                    return Unauthorized(new { message = "Utilisateur non authentifié." });
+
+                // Récupère les infos du vendeur
+                var vendeur = await _vendeurService.GetByEmailAsync(email);
+                if (vendeur == null)
+                    return NotFound(new { message = "Vendeur introuvable." });
+
+                return Ok(new
+                {
+                    vendeur.Id,
+                    vendeur.Nom,
+                    vendeur.Email,
+                    vendeur.Role
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération du profil", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Met à jour le profil du vendeur (nom et email uniquement)
+        /// </summary>
+        /// <param name="dto">Nouvelles données du profil</param>
+        /// <returns>Profil mis à jour</returns>
+        [Authorize]
+        [HttpPut("profile")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> UpdateProfile(UpdateProfileVendeurDto dto)
+        {
+            try
+            {
+                // Validation des données
+                var erreurs = dto.Valider();
+                if (erreurs.Any())
+                    return BadRequest(new { message = "Erreurs de validation", erreurs });
+
+                // Récupère l'email actuel à partir du token
+                var currentEmail = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(currentEmail))
+                    return Unauthorized(new { message = "Utilisateur non authentifié." });
+
+                // Met à jour le profil
+                var updatedVendeur = await _vendeurService.UpdateProfileAsync(currentEmail, dto.Nom, dto.Email);
+                if (updatedVendeur == null)
+                    return NotFound(new { message = "Vendeur introuvable." });
+
+                // Si l'email a changé, générer un nouveau token
+                string? newToken = null;
+                if (currentEmail != dto.Email)
+                {
+                    newToken = GenerateJwtToken(updatedVendeur);
+                }
+
+                return Ok(new
+                {
+                    message = "Profil mis à jour avec succès",
+                    vendeur = new
+                    {
+                        updatedVendeur.Id,
+                        updatedVendeur.Nom,
+                        updatedVendeur.Email,
+                        updatedVendeur.Role
+                    },
+                    newToken, // Sera null si l'email n'a pas changé
+                    emailChanged = currentEmail != dto.Email
+                });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la mise à jour du profil", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Change le mot de passe du vendeur
+        /// </summary>
+        /// <param name="dto">Données de changement de mot de passe</param>
+        /// <returns>Confirmation du changement</returns>
+        [Authorize]
+        [HttpPut("change-password")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> ChangePassword(ChangePasswordVendeurDto dto)
+        {
+            try
+            {
+                // Validation des données
+                var erreurs = dto.Valider();
+                if (erreurs.Any())
+                    return BadRequest(new { message = "Erreurs de validation", erreurs });
+
+                // Récupère l'email à partir du token
+                var email = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(email))
+                    return Unauthorized(new { message = "Utilisateur non authentifié." });
+
+                // Change le mot de passe
+                var success = await _vendeurService.ChangePasswordAsync(email, dto.CurrentPassword, dto.NewPassword);
+                if (!success)
+                    return NotFound(new { message = "Vendeur introuvable." });
+
+                return Ok(new { message = "Mot de passe modifié avec succès" });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors du changement de mot de passe", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Vérifie le mot de passe actuel (utile pour les interfaces)
+        /// </summary>
+        /// <param name="dto">Mot de passe à vérifier</param>
+        /// <returns>Résultat de la vérification</returns>
+        [Authorize]
+        [HttpPost("verify-password")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        public async Task<IActionResult> VerifyPassword([FromBody] string password)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(password))
+                    return BadRequest(new { message = "Le mot de passe est requis" });
+
+                // Récupère l'email à partir du token
+                var email = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(email))
+                    return Unauthorized(new { message = "Utilisateur non authentifié." });
+
+                // Vérifie le mot de passe
+                var isValid = await _vendeurService.VerifyPasswordAsync(email, password);
+
+                return Ok(new { 
+                    isValid,
+                    message = isValid ? "Mot de passe correct" : "Mot de passe incorrect"
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la vérification", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Génère un token JWT pour le vendeur
+        /// </summary>
+        private string GenerateJwtToken(comsult_stock.Models.Vendeur vendeur)
+        {
+            var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]); // Utilise la clé du fichier de configuration
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, vendeur.Email),
+                new Claim(ClaimTypes.Role, vendeur.Role),
+                new Claim("VendeurId", vendeur.Id.ToString()),
+                new Claim("VendeurNom", vendeur.Nom)
+            };
+            var creds = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                claims: claims, 
+                expires: DateTime.Now.AddHours(8), // Durée étendue pour les vendeurs
+                signingCredentials: creds
+            );
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+        /// <summary>
+        /// Mot de passe oublié : envoie un code par email
+        /// </summary>
+        [HttpPost("forgot-password")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest dto)
+        {
+            var success = await _vendeurService.ForgotPasswordAsync(dto.Email);
+            if (!success)
+                return BadRequest(new { message = "Email introuvable." });
+
+            return Ok(new { message = "Un code de réinitialisation a été envoyé à votre adresse email." });
+        }
+
+        /// <summary>
+        /// Réinitialise le mot de passe avec le code reçu par email
+        /// </summary>
+        [HttpPost("reset-password")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest dto)
+        {
+            var success = await _vendeurService.ResetPasswordAsync(dto.Email, dto.ResetCode, dto.NewPassword);
+            if (!success)
+                return BadRequest(new { message = "Code invalide ou email introuvable." });
+
+            return Ok(new { message = "Mot de passe réinitialisé avec succès." });
+        }
+
+    }
+}

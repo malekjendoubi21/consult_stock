@@ -1,0 +1,209 @@
+/* Styles modernes pour le NavbarComponent */
+
+/* Animations personnalisées */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Classes personnalisées */
+.navbar-brand {
+  animation: bounceIn 0.8s ease-out;
+}
+
+.nav-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.mobile-menu {
+  animation: slideDown 0.3s ease-out;
+}
+
+.mobile-menu-item {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.mobile-menu-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.mobile-menu-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.mobile-menu-item:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+/* Logo rotation effect */
+.logo-container {
+  transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+  transform: rotate(3deg) scale(1.05);
+}
+
+/* Button hover effects */
+.nav-button {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.nav-button:hover::before {
+  left: 100%;
+}
+
+/* Dropdown animation */
+.dropdown-menu {
+  animation: slideDown 0.2s ease-out;
+}
+
+/* Mobile burger animation */
+.burger-line {
+  transition: all 0.3s ease;
+}
+
+.burger-open .burger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-open .burger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-open .burger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Glassmorphism effect pour la navbar */
+.navbar-glass {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Status indicator pulse */
+.status-indicator {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .mobile-toggle {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-menu {
+    display: none !important;
+  }
+  
+  .mobile-toggle {
+    display: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .navbar-glass {
+    background: rgba(15, 23, 42, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Accessibility improvements */
+.nav-link:focus,
+.nav-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Performance optimizations */
+.nav-item {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Hover state improvements */
+.nav-item:hover {
+  transform: translateY(-1px);
+}

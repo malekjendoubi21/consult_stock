@@ -1,0 +1,176 @@
+﻿using consult_stock.Data;
+using consult_stock.Services;
+using consult_stock.Filters;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Text.Json.Serialization;
+using Microsoft.OpenApi.Models;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// 1. Ajouter le DbContext (connexion à la base de données)
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+// 2. Ajouter la politique CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+var keyString = builder.Configuration["Jwt:Key"];
+if (string.IsNullOrEmpty(keyString))
+    throw new Exception("Clé JWT introuvable dans appsettings.json !");
+var key = Encoding.UTF8.GetBytes(keyString);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+    });
+
+// 3. Ajouter les contrôleurs et Swagger avec configuration JSON pour gérer les références circulaires
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
+
+builder.Services.AddEndpointsApiExplorer();
+
+// 4. Configuration de Swagger avec support JWT
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Consult Stock API",
+        Version = "v1",
+        Description = "API de gestion de stock pour Consult Stock. " +
+                      "Cette API permet de gérer les articles, lots, stocks, ventes et sociétés.",
+        Contact = new OpenApiContact
+        {
+            Name = "Support Technique",
+            Email = "support@consultstock.com"
+        },
+        License = new OpenApiLicense
+        {
+            Name = "MIT License",
+            Url = new Uri("https://opensource.org/licenses/MIT")
+        }
+    });
+
+    // Configuration pour l'authentification JWT dans Swagger
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n " +
+                      "Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\n" +
+                      "Example: \"Bearer 12345abcdef\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+            },
+            new List<string>()
+        }
+    });
+
+    // Organisation par tags
+    c.TagActionsBy(api => new[] { api.GroupName ?? api.ActionDescriptor.RouteValues["controller"] });
+    c.DocInclusionPredicate((name, api) => true);
+
+    // Configuration pour masquer certains endpoints en fonction de l'environnement
+    c.DocumentFilter<SwaggerDocumentFilter>();
+
+    // Inclure les commentaires XML si disponibles (optionnel)
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        c.IncludeXmlComments(xmlPath);
+    }
+});
+
+// 5. Enregistrer tous les services
+builder.Services.AddScoped<VendeurService>();
+builder.Services.AddScoped<AdministrateurService>();
+builder.Services.AddScoped<SocieteService>();
+builder.Services.AddScoped<StockService>();
+builder.Services.AddScoped<VenteService>();
+builder.Services.AddScoped<ArticleService>();
+builder.Services.AddScoped<LotService>();
+builder.Services.AddScoped<TicketService>();
+builder.Services.AddScoped<VendeurBackofficeService>();
+
+var app = builder.Build();
+
+// 6. Middleware pipeline
+if (app.Environment.IsDevelopment())
+{
+    // Configuration de Swagger uniquement en développement
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Consult Stock API V1");
+        c.RoutePrefix = "swagger"; // Accessible via /swagger
+        c.DocumentTitle = "Consult Stock API Documentation";
+        
+        // Configuration de l'interface utilisateur
+        c.DefaultModelsExpandDepth(-1); // Masquer les modèles par défaut
+        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None); // Réduire tous les endpoints par défaut
+        c.EnableFilter(); // Activer le filtrage
+        c.EnableDeepLinking(); // Liens profonds
+        
+        // Configuration d'affichage améliorée
+        c.DisplayRequestDuration();
+        c.EnableTryItOutByDefault();
+    });
+}
+
+app.UseHttpsRedirection();
+
+// **Activer CORS avant l'authentification**
+app.UseCors("AllowAngularDev");
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+
+// 7. Création automatique du compte admin si inexistant
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await AdministrateurService.SeedAdminAsync(context);
+}
+
+app.Run();

@@ -1,0 +1,16 @@
+<ng-container *ngIf="!isAuthRoute(); else authLayout">
+  <ng-container *ngIf="isAdminRoute(); else userLayout">
+    <app-admin-navbar></app-admin-navbar>
+  </ng-container>
+
+  <ng-template #userLayout>
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </ng-template>
+</ng-container>
+
+<!-- Layout spécial pour les pages d'authentification -->
+<ng-template #authLayout>
+  <router-outlet></router-outlet>
+</ng-template>

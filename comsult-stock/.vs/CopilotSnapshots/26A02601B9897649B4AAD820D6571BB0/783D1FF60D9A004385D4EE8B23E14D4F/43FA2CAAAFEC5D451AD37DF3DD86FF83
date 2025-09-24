@@ -1,0 +1,111 @@
+﻿using consult_stock.Services;
+using comsult_stock.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+namespace consult_stock.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AdministrateursController : ControllerBase
+    {
+        private readonly AdministrateurService _adminService;
+        private readonly IConfiguration _config;
+
+        public AdministrateursController(AdministrateurService adminService, IConfiguration config)
+        {
+            _adminService = adminService;
+            _config = config;
+        }
+
+        // --- REGISTER ---
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] Administrateur dto)
+        {
+            var admin = await _adminService.RegisterAsync(dto.Nom, dto.Login, dto.MotDePasse);
+            return Ok(new { admin.Id, admin.Nom, admin.Login });
+        }
+
+        // --- LOGIN ---
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] Administrateur dto)
+        {
+            var admin = await _adminService.LoginAsync(dto.Login, dto.MotDePasse);
+            var token = GenerateJwtToken(admin);
+            return Ok(new { token });
+        }
+
+        // --- PROFILE ---
+        [Authorize]
+        [HttpGet("profile")]
+        public async Task<IActionResult> Profile()
+        {
+            var login = User.FindFirstValue(ClaimTypes.Name);
+            if (string.IsNullOrEmpty(login))
+                return Unauthorized(new { message = "Utilisateur non authentifié." });
+
+            var admin = await _adminService.GetByLoginAsync(login);
+            if (admin == null)
+                return NotFound(new { message = "Administrateur introuvable." });
+
+            return Ok(new { admin.Id, admin.Nom, admin.Login });
+        }
+
+        // --- CRUD BACKOFFICE ---
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var admins = await _adminService.GetAllAsync();
+            return Ok(admins);
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var admin = await _adminService.GetByIdAsync(id);
+            if (admin == null) return NotFound();
+            return Ok(admin);
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] Administrateur dto)
+        {
+            var updated = await _adminService.UpdateAsync(id, dto);
+            if (updated == null) return NotFound();
+            return Ok(updated);
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _adminService.DeleteAsync(id);
+            if (!deleted) return NotFound();
+            return NoContent();
+        }
+
+        // --- GENERATE TOKEN ---
+        private string GenerateJwtToken(Administrateur admin)
+        {
+            var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, admin.Login),
+                new Claim(ClaimTypes.Role, "Administrateur")
+            };
+            var creds = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddHours(3),
+                signingCredentials: creds);
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+    }
+}

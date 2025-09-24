@@ -1,0 +1,81 @@
+// Utilisation du système de design global
+.lots-container {
+  @extend .admin-container !optional;
+}
+
+.lots-content {
+  @extend .admin-content !optional;
+}
+
+.lots-header {
+  @extend .admin-header;
+}
+
+.lots-title {
+  @extend .admin-title;
+}
+
+.lots-table {
+  @extend .admin-table;
+}
+
+.lots-card {
+  @extend .admin-card;
+}
+
+// Classes spécifiques aux lots
+.lot-item {
+  @extend .admin-row;
+}
+
+.lot-actions {
+  @extend .admin-actions;
+}
+
+.lot-form-group {
+  @extend .form-group;
+}
+
+.lot-form-label {
+  @extend .form-label;
+}
+
+.lot-form-control {
+  @extend .form-control;
+}
+
+// Styles personnalisés pour les lots
+.lot-quantity {
+  @apply bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-medium;
+}
+
+.lot-status {
+  &.active {
+    @apply bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-medium;
+  }
+  
+  &.inactive {
+    @apply bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm font-medium;
+  }
+}
+
+.lot-date {
+  @apply text-gray-600 font-mono text-sm;
+}
+
+// Badge styles pour affichage des quantités
+.quantity-badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  
+  &.high {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  &.medium {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+  
+  &.low {
+    @apply bg-red-100 text-red-800;
+  }
+}

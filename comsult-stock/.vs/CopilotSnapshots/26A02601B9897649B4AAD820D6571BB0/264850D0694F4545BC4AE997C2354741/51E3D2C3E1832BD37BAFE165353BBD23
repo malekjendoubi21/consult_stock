@@ -1,0 +1,427 @@
+﻿using consult_stock.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+
+namespace consult_stock.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Tags("Dashboard")]
+    public class DashboardController : ControllerBase
+    {
+        private readonly DashboardService _dashboardService;
+
+        public DashboardController(DashboardService dashboardService)
+        {
+            _dashboardService = dashboardService;
+        }
+
+        /// <summary>
+        /// Obtient les statistiques générales de l'application
+        /// </summary>
+        /// <returns>Statistiques générales incluant les totaux</returns>
+        [HttpGet("stats/general")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        public async Task<IActionResult> GetGeneralStats()
+        {
+            try
+            {
+                // Vérifier l'authentification
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetGeneralStatsAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des statistiques générales", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient les métriques clés pour les cartes du dashboard
+        /// </summary>
+        /// <returns>Métriques clés avec évolutions</returns>
+        [HttpGet("metriques")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        public async Task<IActionResult> GetMetriquesClés()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var metriques = await _dashboardService.GetMetriquesClésAsync();
+                return Ok(metriques);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des métriques", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Endpoint pour tester l'authentification
+        /// </summary>
+        /// <returns>Informations sur l'utilisateur connecté</returns>
+        [HttpGet("auth-test")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        public IActionResult TestAuth()
+        {
+            var userLogin = User.FindFirstValue(ClaimTypes.Name);
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+            
+            if (string.IsNullOrEmpty(userLogin))
+            {
+                return Unauthorized(new { message = "Token invalide ou manquant" });
+            }
+
+            return Ok(new { 
+                message = "Authentification réussie", 
+                user = userLogin, 
+                role = userRole,
+                isAuthenticated = User.Identity?.IsAuthenticated ?? false,
+                claims = User.Claims.Select(c => new { c.Type, c.Value }).ToList()
+            });
+        }
+
+        /// <summary>
+        /// Version publique des métriques de base (pour test)
+        /// </summary>
+        /// <returns>Métriques de base sans authentification</returns>
+        [HttpGet("metriques-public")]
+        [AllowAnonymous]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetMetriquesPublic()
+        {
+            try
+            {
+                // Version simplifiée pour les tests
+                var stats = new
+                {
+                    message = "Données de test - Dashboard accessible",
+                    timestamp = DateTime.Now,
+                    status = "OK"
+                };
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient les statistiques des ventes par mois (12 derniers mois)
+        /// </summary>
+        /// <returns>Données pour graphique en courbes des ventes mensuelles</returns>
+        [HttpGet("ventes/par-mois")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetVentesParMois()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetVentesParMoisAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des ventes par mois", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient les ventes par période (jour/semaine/mois)
+        /// </summary>
+        /// <param name="periode">Période : jour, semaine, ou mois</param>
+        /// <returns>Données des ventes pour la période spécifiée</returns>
+        [HttpGet("ventes/par-periode")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetVentesParPeriode([FromQuery] string periode = "jour")
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetVentesParPeriodeAsync(periode);
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des ventes par période", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient le top 10 des articles les plus vendus
+        /// </summary>
+        /// <returns>Données pour graphique en barres des articles populaires</returns>
+        [HttpGet("articles/top-vendus")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetTopArticlesVendus()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetTopArticlesVendusAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération du top des articles", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient les statistiques des stocks par article
+        /// </summary>
+        /// <returns>Données pour graphique des niveaux de stock</returns>
+        [HttpGet("stocks/par-article")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetStockParArticle()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetStockParArticleAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des stocks par article", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient les lots proches de l'expiration (30 jours)
+        /// </summary>
+        /// <returns>Liste des lots avec dates d'expiration proches</returns>
+        [HttpGet("lots/expiration-proches")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetLotsExpirationProches()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetLotsExpirationProchesAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des lots proches d'expiration", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient l'évolution du chiffre d'affaires (30 derniers jours)
+        /// </summary>
+        /// <returns>Données pour graphique en courbes du CA quotidien</returns>
+        [HttpGet("chiffre-affaire/evolution")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetEvolutionChiffreAffaire()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetEvolutionChiffreAffaireAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération de l'évolution du CA", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient la répartition des ventes par société
+        /// </summary>
+        /// <returns>Données pour graphique en secteurs (pie chart) des ventes par société</returns>
+        [HttpGet("ventes/par-societe")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetVentesParSociete()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetVentesParSocieteAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des ventes par société", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient les alertes de stock (ruptures et stocks faibles)
+        /// </summary>
+        /// <returns>Liste des articles avec des alertes de stock</returns>
+        [HttpGet("alertes/stock")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetAlertsStock()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetAlertsStockAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des alertes stock", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient les statistiques des prix moyens par article
+        /// </summary>
+        /// <returns>Données des prix (min, max, moyen) par article</returns>
+        [HttpGet("articles/prix-moyens")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetPrixMoyenParArticle()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetPrixMoyenParArticleAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des prix moyens", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient les performances des vendeurs
+        /// </summary>
+        /// <returns>Données des performances de chaque vendeur</returns>
+        [HttpGet("vendeurs/performances")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetPerformancesVendeurs()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var stats = await _dashboardService.GetPerformancesVendeursAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération des performances vendeurs", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Obtient un résumé complet pour le dashboard principal
+        /// </summary>
+        /// <returns>Résumé avec toutes les données principales</returns>
+        [HttpGet("resume-complet")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetResumeComplet()
+        {
+            try
+            {
+                var userLogin = User.FindFirstValue(ClaimTypes.Name);
+                if (string.IsNullOrEmpty(userLogin))
+                {
+                    return Unauthorized(new { message = "Vous n'êtes pas connecté. Veuillez vous authentifier." });
+                }
+
+                var metriques = await _dashboardService.GetMetriquesClésAsync();
+                var ventesParMois = await _dashboardService.GetVentesParMoisAsync();
+                var topArticles = await _dashboardService.GetTopArticlesVendusAsync();
+                var alertes = await _dashboardService.GetAlertsStockAsync();
+
+                var resume = new
+                {
+                    Metriques = metriques,
+                    VentesParMois = ventesParMois,
+                    TopArticles = topArticles,
+                    Alertes = alertes
+                };
+
+                return Ok(resume);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erreur lors de la récupération du résumé complet", error = ex.Message });
+            }
+        }
+    }
+}

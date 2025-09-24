@@ -1,0 +1,716 @@
+<!-- Navbar Moderne avec Glassmorphism -->
+<nav class="bg-white/80 backdrop-blur-lg border-b border-slate-200/50 fixed w-full z-50 top-0 shadow-xl">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex justify-between items-center h-20">
+      
+      <!-- Logo et Brand -->
+      <div class="flex items-center space-x-4 cursor-pointer" (click)="retourMenu()">
+        <div class="relative">
+          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-700 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+            </svg>
+          </div>
+          <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+            ConsultStock
+          </h1>
+          <p class="text-xs text-slate-500 font-medium tracking-wider">PRO PLATFORM</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links (Desktop) -->
+      <div class="hidden lg:flex items-center space-x-8">
+        <nav class="flex space-x-6">
+          <button (click)="retourMenu()"
+             [class.text-blue-600]="activeView === 'societes'"
+             [class.bg-blue-50]="activeView === 'societes'"
+             [class.border-blue-200]="activeView === 'societes'"
+             class="flex items-center space-x-2 px-4 py-2 rounded-xl border border-transparent hover:bg-slate-50 hover:border-slate-200 transition-all duration-200 font-medium text-slate-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            <span>Accueil</span>
+          </button>
+          
+          <button (click)="activeView = 'recherche'"
+             [class.text-blue-600]="activeView === 'recherche'"
+             [class.bg-blue-50]="activeView === 'recherche'"
+             [class.border-blue-200]="activeView === 'recherche'"
+             [disabled]="!societeSelectionnee"
+             class="flex items-center space-x-2 px-4 py-2 rounded-xl border border-transparent hover:bg-slate-50 hover:border-slate-200 transition-all duration-200 font-medium text-slate-700 disabled:opacity-50">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <span>Recherche</span>
+          </button>
+
+          <button (click)="activeView = 'vente'"
+             [class.text-blue-600]="activeView === 'vente'"
+             [class.bg-blue-50]="activeView === 'vente'"
+             [class.border-blue-200]="activeView === 'vente'"
+             [disabled]="!societeSelectionnee"
+             class="flex items-center space-x-2 px-4 py-2 rounded-xl border border-transparent hover:bg-slate-50 hover:border-slate-200 transition-all duration-200 font-medium text-slate-700 disabled:opacity-50">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0L4 5M20 13v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"></path>
+            </svg>
+            <span>Vente</span>
+          </button>
+
+          <button (click)="activeView = 'tickets'"
+             [class.text-blue-600]="activeView === 'tickets'"
+             [class.bg-blue-50]="activeView === 'tickets'"
+             [class.border-blue-200]="activeView === 'tickets'"
+             class="flex items-center space-x-2 px-4 py-2 rounded-xl border border-transparent hover:bg-slate-50 hover:border-slate-200 transition-all duration-200 font-medium text-slate-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <span>Tickets</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Actions utilisateur (Desktop) -->
+      <div class="hidden lg:flex items-center space-x-4">
+        <!-- Profil utilisateur avec dropdown -->
+        <div class="relative group">
+          <button class="flex items-center space-x-3 bg-gradient-to-r from-slate-100 to-slate-200 hover:from-slate-200 hover:to-slate-300 px-4 py-2 rounded-xl transition-all duration-200 transform hover:scale-105">
+            <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+              <span class="text-white text-sm font-bold">{{ (vendeurProfile?.nom || 'V')[0] }}</span>
+            </div>
+            <span class="font-medium text-slate-700">{{ vendeurProfile?.nom || 'Vendeur' }}</span>
+          </button>
+          
+          <!-- Mini dropdown -->
+          <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <div class="py-2">
+              <div class="px-4 py-2 text-sm text-slate-500 border-b border-slate-100">
+                <p class="font-medium">{{ vendeurProfile?.nom || 'Vendeur' }}</p>
+                <p class="text-xs">{{ vendeurProfile?.email || 'vendeur@email.com' }}</p>
+              </div>
+              <button (click)="goToProfile()" class="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center space-x-3">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+                <span>Voir profil</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <button (click)="logout()" 
+                class="flex items-center space-x-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-4 py-2 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+          </svg>
+          <span>Déconnexion</span>
+        </button>
+      </div>
+
+      <!-- Menu Burger (Mobile) -->
+      <div class="lg:hidden">
+        <button (click)="toggleMobileMenu()" 
+                class="w-12 h-12 bg-slate-100 hover:bg-slate-200 rounded-xl flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-100">
+          <svg class="w-6 h-6 text-slate-700 transition-transform duration-200" 
+               [class.rotate-90]="mobileMenuOpen" 
+               fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path *ngIf="!mobileMenuOpen" d="M4 6h16M4 12h16M4 18h16"/>
+            <path *ngIf="mobileMenuOpen" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Mobile Moderne -->
+  <div *ngIf="mobileMenuOpen" class="lg:hidden bg-white/95 backdrop-blur-lg border-t border-slate-200">
+    <div class="px-6 py-6 space-y-4">
+      <!-- Navigation Links Mobile -->
+      <div class="space-y-2">
+        <button (click)="retourMenu(); toggleMobileMenu()"
+           class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-all duration-200 text-slate-700 font-medium">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          <span>Accueil</span>
+        </button>
+        
+        <button (click)="activeView = 'recherche'; toggleMobileMenu()"
+           [disabled]="!societeSelectionnee"
+           class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-all duration-200 text-slate-700 font-medium disabled:opacity-50">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <span>Recherche</span>
+        </button>
+
+        <button (click)="activeView = 'vente'; toggleMobileMenu()"
+           [disabled]="!societeSelectionnee"
+           class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-all duration-200 text-slate-700 font-medium disabled:opacity-50">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0L4 5M20 13v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"></path>
+          </svg>
+          <span>Vente</span>
+        </button>
+
+        <button (click)="activeView = 'tickets'; toggleMobileMenu()"
+           class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-all duration-200 text-slate-700 font-medium">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span>Tickets</span>
+        </button>
+      </div>
+
+      <!-- Séparateur -->
+      <div class="border-t border-slate-200 my-4"></div>
+
+      <!-- Actions Mobile -->
+      <div class="space-y-3">
+        <div class="px-4 py-3 bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 rounded-xl">
+          <p class="font-medium">{{ vendeurProfile?.nom || 'Vendeur' }}</p>
+          <p class="text-xs text-slate-500">{{ vendeurProfile?.email || 'vendeur@email.com' }}</p>
+        </div>
+        
+        <button (click)="logout(); toggleMobileMenu()" 
+                class="w-full flex items-center space-x-3 px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl font-medium">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+          </svg>
+          <span>Déconnexion</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Background moderne avec padding-top pour compenser la navbar fixe -->
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 pt-20">
+  <div class="container mx-auto px-6 py-8">
+
+    <!-- 1. CHOIX DE LA SOCIÉTÉ - Design Moderne -->
+    <div *ngIf="activeView === 'societes'" class="max-w-7xl mx-auto">
+      <!-- Header Section -->
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mb-6">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2-2v16m14 0H5m14 0a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+          </svg>
+        </div>
+        <h2 class="text-4xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent mb-4">
+          Sélectionnez votre société
+        </h2>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+          Choisissez la société avec laquelle vous souhaitez travailler pour accéder aux fonctionnalités de gestion des stocks et des ventes.
+        </p>
+      </div>
+      
+      <!-- Sociétés Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div 
+          *ngFor="let societe of societes; let i = index" 
+          (click)="selectSociete(societe)"
+          class="group relative bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100">
+          
+          <!-- Gradient Header avec icône -->
+          <div class="h-32 bg-gradient-to-br from-blue-400 to-blue-600 relative">
+            <div class="absolute top-4 right-4">
+              <div class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="p-6">
+            <!-- Avatar et nom -->
+            <div class="flex items-center space-x-3 mb-4">
+              <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                <span class="text-lg font-bold text-gray-600">{{ societe.nom[0] }}</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 text-lg">
+                  {{ societe.nom }}
+                </h3>
+                <p class="text-sm text-gray-500">ID: {{ societe.id }}</p>
+              </div>
+            </div>
+            
+            <!-- Informations -->
+            <div class="space-y-2 mb-6">
+              <div class="flex items-center space-x-2 text-sm text-gray-600">
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span class="truncate">{{ societe.adresse || societe.nom }}</span>
+              </div>
+              
+              <div class="flex items-center space-x-2 text-sm text-gray-600">
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v14a2 2 0 002 2z"></path>
+                </svg>
+                <span>{{ getSocieteEmail(societe) }}</span>
+              </div>
+            </div>
+
+            <!-- Button Action -->
+            <button class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium py-3 px-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 group-hover:scale-105">
+              <span class="flex items-center justify-center space-x-2">
+                <span>Sélectionner</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+
+          <!-- Hover Effect Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="societes.length === 0" class="text-center py-16">
+        <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2-2v16m14 0H5m14 0a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-slate-600 mb-2">Aucune société disponible</h3>
+        <p class="text-slate-500">Contactez votre administrateur pour avoir accès aux sociétés.</p>
+      </div>
+    </div>
+
+  <!-- 2. RECHERCHE D'ARTICLE -->
+    <!-- 2. RECHERCHE D'ARTICLES - Design Moderne -->
+    <div *ngIf="activeView === 'recherche'" class="max-w-7xl mx-auto">
+      <!-- Header avec informations société -->
+      <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 mb-8">
+        <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
+          <!-- Info société -->
+          <div class="flex items-center space-x-4">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
+                Recherche d'articles
+              </h2>
+              <p class="text-slate-600 flex items-center space-x-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2-2v16m14 0H5m14 0a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                </svg>
+                <span class="font-medium">{{ selectedSociete?.nom }}</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Actions rapides -->
+          <div class="flex flex-wrap gap-3">
+            <button 
+              (click)="retourMenu()" 
+              class="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg">
+              <span class="flex items-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                <span>Retour aux sociétés</span>
+              </span>
+            </button>
+            
+            <button 
+              (click)="afficherVente()" 
+              class="relative bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg">
+              <span class="flex items-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5-6m0 0L4 5M20 13v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"></path>
+                </svg>
+                <span>Panier</span>
+              </span>
+              <span *ngIf="panier.length > 0" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+                {{ panier.length }}
+              </span>
+            </button>
+            
+            <button 
+              (click)="afficherTickets()" 
+              class="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg">
+              <span class="flex items-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>Mes Tickets</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barre de recherche moderne -->
+      <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 mb-8">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input 
+            [(ngModel)]="searchTerm" 
+            (input)="searchArticles()"
+            type="text" 
+            placeholder="Rechercher par nom, code d'article, description..."
+            class="w-full pl-12 pr-32 py-4 text-lg border-2 border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200">
+          <button 
+            (click)="searchArticles()"
+            class="absolute right-2 top-2 bottom-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
+            Rechercher
+          </button>
+        </div>
+        
+     
+      </div>
+
+      <!-- Résultats de recherche -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div 
+          *ngFor="let article of filteredArticles; let i = index" 
+          class="group bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+          
+          <!-- Header coloré avec code article -->
+          <div class="h-32 bg-gradient-to-br from-blue-400 to-blue-600 relative">
+            <div class="absolute top-4 right-4">
+              <span class="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">
+                {{ article.codeArticle }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Contenu -->
+          <div class="p-6">
+            <!-- Avatar et nom -->
+            <div class="flex items-center space-x-3 mb-4">
+              <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                <span class="text-lg font-bold text-gray-600">{{ article.nom[0] }}</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 text-lg line-clamp-1">
+                  {{ article.nom }}
+                </h3>
+                <p class="text-sm text-gray-500">
+                  Code: {{ article.codeArticle }}
+                </p>
+              </div>
+            </div>
+
+            <!-- Prix et informations -->
+            <div class="space-y-2 mb-6">
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-600">Prix HT:</span>
+                <span class="text-sm font-medium text-gray-900">{{ article.prixHT | currency:'EUR' }}</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-lg font-bold text-green-600">{{ article.prixTTC | currency:'EUR' }}</span>
+                <span class="text-sm text-gray-500">Prix TTC</span>
+              </div>
+            </div>
+
+            <!-- Action button -->
+            <button 
+              (click)="consulterStock(article)"
+              class="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-3 rounded-xl transition-all duration-200 group-hover:scale-105">
+              <span class="flex items-center justify-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                </svg>
+                <span>Consulter le stock</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="filteredArticles.length === 0" class="text-center text-gray-500 py-8">
+        <p>Aucun article trouvé pour "{{ searchTerm }}"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. CONSULTATION DU STOCK -->
+  <div *ngIf="activeView === 'stock' && stockDetails" class="max-w-6xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">
+          📦 Stock - {{ stockDetails.article.nom }}
+        </h2>
+        <button 
+          (click)="activeView = 'recherche'" 
+          class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded">
+          ← Retour à la recherche
+        </button>
+      </div>
+
+      <!-- Informations article -->
+      <div class="bg-blue-50 rounded-lg p-4 mb-6">
+        <h3 class="font-semibold text-blue-800">{{ stockDetails.article.nom }}</h3>
+        <p class="text-blue-600">Code: {{ stockDetails.article.codeArticle }}</p>
+        <p class="text-gray-600 text-sm">Prix TTC: {{ stockDetails.article.prixTTC }}€</p>
+      </div>
+
+      <!-- Tableau des lots -->
+      <div class="overflow-x-auto">
+        <table class="w-full bg-white border border-gray-200 rounded-lg">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Numéro de lot
+              </th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Quantité disponible
+              </th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Prix TTC
+              </th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Date d'expiration
+              </th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr *ngFor="let lot of stockDetails.lots" class="hover:bg-gray-50">
+              <td class="px-4 py-3 text-sm font-medium text-gray-900">
+                {{ lot.numero }}
+              </td>
+              <td class="px-4 py-3 text-sm text-gray-900">
+                <span 
+                  [class]="lot.quantiteDisponible > 10 ? 'text-green-600' : lot.quantiteDisponible > 0 ? 'text-orange-600' : 'text-red-600'">
+                  {{ lot.quantiteDisponible }}
+                </span>
+              </td>
+              <td class="px-4 py-3 text-sm text-gray-900 font-semibold">
+                {{ lot.prixTTC | currency:'EUR' }}
+              </td>
+              <td class="px-4 py-3 text-sm text-gray-900">
+                <span *ngIf="lot.dateExpiration" 
+                      [class]="getDateClass(lot.dateExpiration)">
+                  {{ lot.dateExpiration | date:'dd/MM/yyyy' }}
+                </span>
+                <span *ngIf="!lot.dateExpiration" class="text-gray-400">-</span>
+              </td>
+              <td class="px-4 py-3 text-sm">
+                <div class="flex items-center space-x-2">
+                  <input 
+                    type="number" 
+                    min="1" 
+                    [max]="lot.quantiteDisponible"
+                    value="1"
+                    #quantiteInput
+                    class="w-16 border border-gray-300 rounded px-2 py-1 text-xs"
+                    [disabled]="lot.quantiteDisponible === 0">
+                  <button 
+                    (click)="ajouterAuPanier(lot, +quantiteInput.value)"
+                    [disabled]="lot.quantiteDisponible === 0"
+                    class="bg-green-500 hover:bg-green-700 disabled:bg-gray-300 text-white px-3 py-1 rounded text-xs">
+                    + Panier
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="stockDetails.lots.length === 0" class="text-center text-gray-500 py-8">
+        <p>Aucun lot disponible pour cet article.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. VENTE / PANIER -->
+  <div *ngIf="activeView === 'vente'" class="max-w-6xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">🛒 Panier de vente</h2>
+        <button 
+          (click)="activeView = 'recherche'" 
+          class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded">
+          ← Continuer les achats
+        </button>
+      </div>
+
+      <div *ngIf="panier.length > 0">
+        <!-- Articles dans le panier -->
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full bg-white border border-gray-200 rounded-lg">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Article</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Lot</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Quantité</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Prix unitaire</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Sous-total</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr *ngFor="let item of panier" class="hover:bg-gray-50">
+                <td class="px-4 py-3 text-sm font-medium text-gray-900">{{ item.articleNom }}</td>
+                <td class="px-4 py-3 text-sm text-gray-900">{{ item.lotNumero }}</td>
+                <td class="px-4 py-3 text-sm text-gray-900">{{ item.quantite }}</td>
+                <td class="px-4 py-3 text-sm text-gray-900">{{ item.prixUnitaire | currency:'EUR' }}</td>
+                <td class="px-4 py-3 text-sm font-semibold text-gray-900">{{ item.sousTotal | currency:'EUR' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Total et validation -->
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-lg font-semibold">Total:</span>
+            <span class="text-2xl font-bold text-green-600">
+              {{ getTotalPanier() | currency:'EUR' }}
+            </span>
+          </div>
+          <button 
+            (click)="finaliserVente()"
+            class="w-full bg-green-500 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-semibold">
+            💳 Finaliser la vente
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="panier.length === 0" class="text-center text-gray-500 py-12">
+        <p class="text-lg">Votre panier est vide</p>
+        <button 
+          (click)="activeView = 'recherche'" 
+          class="mt-4 bg-blue-500 hover:bg-blue-700 text-white px-6 py-2 rounded">
+          Commencer vos achats
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. TICKETS -->
+  <div *ngIf="activeView === 'tickets'" class="max-w-6xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">📋 Historique des tickets</h2>
+        <button 
+          (click)="activeView = 'recherche'" 
+          class="bg-gray-500 hover:bg-gray-700 text-white px-4 py-2 rounded">
+          ← Retour
+        </button>
+      </div>
+
+      <div *ngIf="tickets.length > 0" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div 
+          *ngFor="let ticket of tickets" 
+          class="bg-gray-50 border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-semibold text-gray-800">{{ ticket.id }}</h3>
+            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Payé</span>
+          </div>
+          <p class="text-sm text-gray-600">Vendeur: {{ ticket.vendeurNom }}</p>
+          <p class="text-sm text-gray-600">Société: {{ ticket.societeNom }}</p>
+          <p class="text-sm text-gray-600">Date: {{ ticket.dateVente | date:'dd/MM/yyyy HH:mm' }}</p>
+          <p class="text-lg font-semibold text-green-600 mt-2">
+            {{ ticket.montantTotal | currency:'EUR' }}
+          </p>
+          <button 
+            (click)="selectedTicket = ticket; showTicketModal = true"
+            class="w-full mt-3 bg-blue-500 hover:bg-blue-700 text-white py-2 rounded text-sm">
+            🖨️ Voir/Imprimer
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="tickets.length === 0" class="text-center text-gray-500 py-12">
+        <p class="text-lg">Aucun ticket généré</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal ticket -->
+<div *ngIf="showTicketModal && selectedTicket" 
+     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div class="p-6">
+      <!-- En-tête ticket -->
+      <div class="text-center border-b pb-4 mb-4">
+        <h2 class="text-2xl font-bold">TICKET DE VENTE</h2>
+        <p class="text-gray-600">{{ selectedTicket.societeNom }}</p>
+        <p class="text-sm text-gray-500">{{ selectedTicket.dateVente | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+      </div>
+
+      <!-- Informations ticket -->
+      <div class="mb-4 text-sm">
+        <p><strong>Ticket N°:</strong> {{ selectedTicket.id }}</p>
+        <p><strong>Vendeur:</strong> {{ selectedTicket.vendeurNom }}</p>
+      </div>
+
+      <!-- Détails des articles -->
+      <table class="w-full text-sm border-collapse mb-4">
+        <thead>
+          <tr class="border-b">
+            <th class="text-left py-2">Article</th>
+            <th class="text-left py-2">Lot</th>
+            <th class="text-right py-2">Qté</th>
+            <th class="text-right py-2">P.U.</th>
+            <th class="text-right py-2">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of selectedTicket.items" class="border-b">
+            <td class="py-1">{{ item.articleNom }}</td>
+            <td class="py-1">{{ item.lotNumero }}</td>
+            <td class="py-1 text-right">{{ item.quantite }}</td>
+            <td class="py-1 text-right">{{ item.prixUnitaire | currency:'EUR' }}</td>
+            <td class="py-1 text-right">{{ item.sousTotal | currency:'EUR' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Total -->
+      <div class="border-t pt-2 mb-4">
+        <div class="flex justify-between text-lg font-bold">
+          <span>TOTAL:</span>
+          <span>{{ selectedTicket.montantTotal | currency:'EUR' }}</span>
+        </div>
+      </div>
+
+      <!-- Code-barres (simulé) -->
+      <div class="text-center mb-4">
+        <div class="bg-black text-white inline-block px-4 py-2 font-mono text-xs">
+          ||||| {{ selectedTicket.id }} |||||
+        </div>
+      </div>
+
+      <!-- Boutons -->
+      <div class="flex space-x-4">
+        <button 
+          (click)="imprimerTicket(selectedTicket)"
+          class="flex-1 bg-blue-500 hover:bg-blue-700 text-white py-2 rounded">
+          🖨️ Imprimer
+        </button>
+        <button 
+          (click)="showTicketModal = false"
+          class="flex-1 bg-gray-500 hover:bg-gray-700 text-white py-2 rounded">
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

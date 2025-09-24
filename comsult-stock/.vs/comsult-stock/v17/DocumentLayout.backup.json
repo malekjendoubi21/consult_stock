@@ -1,0 +1,241 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\services\\vendeurservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\services\\vendeurservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\dtos\\resetpasswordrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\dtos\\resetpasswordrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\dtos\\forgotpasswordrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\dtos\\forgotpasswordrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\services\\venteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\services\\venteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\services\\smtpsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\services\\smtpsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\controllers\\administrateurscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\controllers\\administrateurscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\services\\articleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\services\\articleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\models\\vendeur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\models\\vendeur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\models\\vente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\models\\vente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|d:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\models\\administrateur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFCF7756-AB70-4D9E-ABA6-FEBC59FB70D5}|comsult-stock\\comsult-stock.csproj|solutionrelative:comsult-stock\\models\\administrateur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SmtpSettings.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Services\\SmtpSettings.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Services\\SmtpSettings.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Services\\SmtpSettings.cs",
+              "RelativeToolTip": "comsult-stock\\Services\\SmtpSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:16:23.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\appsettings.json",
+              "RelativeDocumentMoniker": "comsult-stock\\appsettings.json",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\appsettings.json",
+              "RelativeToolTip": "comsult-stock\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-24T22:13:53.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VendeurService.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Services\\VendeurService.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Services\\VendeurService.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Services\\VendeurService.cs",
+              "RelativeToolTip": "comsult-stock\\Services\\VendeurService.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAwBMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:12:35.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "comsult-stock\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAABIBAAAAAAAAAADwvyoBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:11:29.243Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Program.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Program.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Program.cs*",
+              "RelativeToolTip": "comsult-stock\\Program.cs*",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAAALcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T18:31:24.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ResetPasswordRequest.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\DTOs\\ResetPasswordRequest.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\DTOs\\ResetPasswordRequest.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\DTOs\\ResetPasswordRequest.cs",
+              "RelativeToolTip": "comsult-stock\\DTOs\\ResetPasswordRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:19:42.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ForgotPasswordRequest.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\DTOs\\ForgotPasswordRequest.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\DTOs\\ForgotPasswordRequest.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\DTOs\\ForgotPasswordRequest.cs",
+              "RelativeToolTip": "comsult-stock\\DTOs\\ForgotPasswordRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:19:06.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "VenteService.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Services\\VenteService.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Services\\VenteService.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Services\\VenteService.cs",
+              "RelativeToolTip": "comsult-stock\\Services\\VenteService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:17:55.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AdministrateursController.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Controllers\\AdministrateursController.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Controllers\\AdministrateursController.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Controllers\\AdministrateursController.cs",
+              "RelativeToolTip": "comsult-stock\\Controllers\\AdministrateursController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:26:28.838Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ArticleService.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Services\\ArticleService.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Services\\ArticleService.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Services\\ArticleService.cs",
+              "RelativeToolTip": "comsult-stock\\Services\\ArticleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:12:27.675Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Vendeur.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Models\\Vendeur.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Models\\Vendeur.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Models\\Vendeur.cs",
+              "RelativeToolTip": "comsult-stock\\Models\\Vendeur.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAA8wAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:08:45.242Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Vente.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Models\\Vente.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Models\\Vente.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Models\\Vente.cs",
+              "RelativeToolTip": "comsult-stock\\Models\\Vente.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:08:44.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Administrateur.cs",
+              "DocumentMoniker": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Models\\Administrateur.cs",
+              "RelativeDocumentMoniker": "comsult-stock\\Models\\Administrateur.cs",
+              "ToolTip": "D:\\fac\\farah esb pfe\\consult_stock-test\\comsult-stock\\comsult-stock\\Models\\Administrateur.cs",
+              "RelativeToolTip": "comsult-stock\\Models\\Administrateur.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T18:26:11.375Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

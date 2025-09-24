@@ -1,0 +1,216 @@
+﻿using comsult_stock.DTOs;
+using comsult_stock.Models;
+using consult_stock.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace consult_stock.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Produces("application/json")]
+    [Tags("Articles")]
+    public class ArticlesController : ControllerBase
+    {
+        private readonly ArticleService _articleService;
+
+        public ArticlesController(ArticleService articleService)
+        {
+            _articleService = articleService;
+        }
+
+        /// <summary>
+        /// Récupère tous les articles
+        /// </summary>
+        /// <returns>Liste de tous les articles</returns>
+        /// <response code="200">Retourne la liste des articles</response>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Article>), 200)]
+        public async Task<IActionResult> GetAll()
+        {
+            var articles = await _articleService.GetAllAsync();
+            return Ok(articles);
+        }
+
+        /// <summary>
+        /// Récupère un article par son ID
+        /// </summary>
+        /// <param name="id">ID de l'article</param>
+        /// <returns>L'article correspondant</returns>
+        /// <response code="200">Retourne l'article</response>
+        /// <response code="404">Article non trouvé</response>
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Article), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var article = await _articleService.GetByIdAsync(id);
+            if (article == null) return NotFound();
+            return Ok(article);
+        }
+
+        /// <summary>
+        /// Recherche des articles par terme
+        /// </summary>
+        /// <param name="term">Terme de recherche</param>
+        /// <returns>Articles correspondant au terme de recherche</returns>
+        [HttpGet("search")]
+        [ProducesResponseType(typeof(IEnumerable<Article>), 200)]
+        public async Task<IActionResult> Search([FromQuery] string term = "")
+        {
+            if (string.IsNullOrWhiteSpace(term))
+            {
+                var allArticles = await _articleService.GetAllAsync();
+                return Ok(allArticles);
+            }
+
+            var articles = await _articleService.SearchAsync(term);
+            return Ok(articles);
+        }
+
+        /// <summary>
+        /// Récupère un article par son code
+        /// </summary>
+        /// <param name="code">Code de l'article</param>
+        /// <returns>L'article correspondant au code</returns>
+        [HttpGet("code/{code}")]
+        [ProducesResponseType(typeof(Article), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetByCode(string code)
+        {
+            var article = await _articleService.GetByCodeAsync(code);
+            if (article == null) return NotFound();
+            return Ok(article);
+        }
+
+        /// <summary>
+        /// Récupère les articles d'une société
+        /// </summary>
+        /// <param name="societeId">ID de la société</param>
+        /// <returns>Articles de la société</returns>
+        [HttpGet("societe/{societeId}")]
+        [ProducesResponseType(typeof(IEnumerable<Article>), 200)]
+        public async Task<IActionResult> GetBySocieteId(int societeId)
+        {
+            var articles = await _articleService.GetBySocieteIdAsync(societeId);
+            return Ok(articles);
+        }
+
+        /// <summary>
+        /// Récupère tous les articles pour liste déroulante
+        /// </summary>
+        /// <returns>Articles formatés pour liste déroulante</returns>
+        [HttpGet("select")]
+        [ProducesResponseType(typeof(IEnumerable<ArticleSelectDto>), 200)]
+        public async Task<IActionResult> GetArticlesForSelect()
+        {
+            var articles = await _articleService.GetArticlesForSelectAsync();
+            return Ok(articles);
+        }
+
+        /// <summary>
+        /// Récupère les articles avec stock pour une société
+        /// </summary>
+        /// <param name="societeId">ID de la société</param>
+        /// <returns>Articles avec stock disponible</returns>
+        [HttpGet("select/societe/{societeId}")]
+        [ProducesResponseType(typeof(IEnumerable<ArticleSelectDto>), 200)]
+        public async Task<IActionResult> GetArticlesWithStockBySociete(int societeId)
+        {
+            var articles = await _articleService.GetArticlesWithStockBySocieteAsync(societeId);
+            return Ok(articles);
+        }
+
+        /// <summary>
+        /// Crée un nouvel article (Admin uniquement)
+        /// </summary>
+        /// <param name="dto">Données de l'article à créer</param>
+        /// <returns>Article créé</returns>
+        /// <response code="201">Article créé avec succès</response>
+        /// <response code="400">Données invalides</response>
+        /// <response code="401">Non autorisé</response>
+        [Authorize] // Admin only
+        [HttpPost]
+        [ProducesResponseType(typeof(Article), 201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        public async Task<IActionResult> Create([FromBody] CreateArticleDto dto)
+        {
+            try
+            {
+                var article = new Article
+                {
+                    Nom = dto.Nom,
+                    CodeArticle = dto.CodeArticle,
+                    PrixTTC = dto.PrixTTC,
+                    PrixHT = dto.PrixHT
+                };
+
+                var created = await _articleService.CreateAsync(article);
+                return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Met à jour un article existant (Admin uniquement)
+        /// </summary>
+        /// <param name="id">ID de l'article à mettre à jour</param>
+        /// <param name="dto">Données mises à jour de l'article</param>
+        /// <returns>Article mis à jour</returns>
+        /// <response code="200">Article mis à jour avec succès</response>
+        /// <response code="400">Données invalides</response>
+        /// <response code="401">Non autorisé</response>
+        /// <response code="404">Article non trouvé</response>
+        [Authorize] // Admin only
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(Article), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateArticleDto dto)
+        {
+            try
+            {
+                var article = new Article
+                {
+                    Nom = dto.Nom,
+                    CodeArticle = dto.CodeArticle,
+                    PrixTTC = dto.PrixTTC,
+                    PrixHT = dto.PrixHT
+                };
+
+                var updated = await _articleService.UpdateAsync(id, article);
+                if (updated == null) return NotFound();
+                return Ok(updated);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Supprime un article (Admin uniquement)
+        /// </summary>
+        /// <param name="id">ID de l'article à supprimer</param>
+        /// <returns>Résultat de la suppression</returns>
+        /// <response code="204">Article supprimé avec succès</response>
+        /// <response code="401">Non autorisé</response>
+        /// <response code="404">Article non trouvé</response>
+        [Authorize] // Admin only
+        [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _articleService.DeleteAsync(id);
+            if (!deleted) return NotFound();
+            return NoContent();
+        }
+    }
+}

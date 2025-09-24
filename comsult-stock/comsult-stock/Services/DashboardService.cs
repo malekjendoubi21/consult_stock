@@ -1,0 +1,378 @@
+using consult_stock.Data;
+using comsult_stock.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace consult_stock.Services
+{
+    public class DashboardService
+    {
+        private readonly AppDbContext _context;
+
+        public DashboardService(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        // Statistiques générales
+        public async Task<object> GetGeneralStatsAsync()
+        {
+            var totalArticles = await _context.Articles.CountAsync();
+            var totalLots = await _context.Lots.CountAsync();
+            var totalStock = await _context.Stocks.SumAsync(s => (int?)s.QteDispo) ?? 0;
+            var totalVentes = await _context.Ventes.CountAsync();
+            var totalSocietes = await _context.Societes.CountAsync();
+            var totalVendeurs = await _context.Vendeurs.CountAsync();
+            var chiffreAffaireMensuel = await _context.Ventes
+                .Where(v => v.Date.Month == DateTime.Now.Month && v.Date.Year == DateTime.Now.Year)
+                .SumAsync(v => (double?)v.PrixTotal) ?? 0;
+
+            return new
+            {
+                TotalArticles = totalArticles,
+                TotalLots = totalLots,
+                TotalStock = totalStock,
+                TotalVentes = totalVentes,
+                TotalSocietes = totalSocietes,
+                TotalVendeurs = totalVendeurs,
+                ChiffreAffaireMensuel = chiffreAffaireMensuel
+            };
+        }
+
+        // Statistiques des ventes par mois (12 derniers mois)
+        public async Task<object> GetVentesParMoisAsync()
+        {
+            var dateLimit = DateTime.Now.AddMonths(-12);
+            
+            var ventesParMois = await _context.Ventes
+                .Where(v => v.Date >= dateLimit)
+                .GroupBy(v => new { v.Date.Year, v.Date.Month })
+                .Select(g => new
+                {
+                    Mois = $"{g.Key.Year}-{g.Key.Month:D2}",
+                    Annee = g.Key.Year,
+                    MoisNum = g.Key.Month,
+                    NombreVentes = g.Count(),
+                    QuantiteVendue = g.Sum(v => v.QteVendu),
+                    ChiffreAffaire = g.Sum(v => v.PrixTotal)
+                })
+                .OrderBy(x => x.Annee)
+                .ThenBy(x => x.MoisNum)
+                .ToListAsync();
+
+            return ventesParMois;
+        }
+
+        // Top 10 des articles les plus vendus
+        public async Task<object> GetTopArticlesVendusAsync()
+        {
+            var topArticles = await _context.Ventes
+                .GroupBy(v => v.Article)
+                .Select(g => new
+                {
+                    Article = g.Key,
+                    QuantiteVendue = g.Sum(v => v.QteVendu),
+                    NombreVentes = g.Count(),
+                    ChiffreAffaire = g.Sum(v => v.PrixTotal)
+                })
+                .OrderByDescending(x => x.QuantiteVendue)
+                .Take(10)
+                .ToListAsync();
+
+            return topArticles;
+        }
+
+        // Statistiques des stocks par article
+        public async Task<object> GetStockParArticleAsync()
+        {
+            var stocksParArticle = await _context.Stocks
+                .Include(s => s.Article)
+                .Where(s => s.Article != null)
+                .GroupBy(s => s.Article!.Nom)
+                .Select(g => new
+                {
+                    Article = g.Key,
+                    QuantiteStock = g.Sum(s => s.QteDispo),
+                    NombreLots = g.Count(),
+                    ValeurStock = g.Sum(s => s.QteDispo * s.PrixTTC)
+                })
+                .OrderByDescending(x => x.QuantiteStock)
+                .Take(15)
+                .ToListAsync();
+
+            return stocksParArticle;
+        }
+
+        // Lots proches de l'expiration (30 jours)
+        public async Task<object> GetLotsExpirationProchesAsync()
+        {
+            var dateLimit = DateTime.Now.AddDays(30);
+            
+            var lotsExpiration = await _context.Lots
+                .Include(l => l.Article)
+                .Where(l => l.DateExpiration.HasValue && 
+                           l.DateExpiration.Value <= dateLimit && 
+                           l.DateExpiration.Value >= DateTime.Now &&
+                           l.QuantiteDisponible > 0)
+                .Select(l => new
+                {
+                    l.Id,
+                    l.NumLot,
+                    ArticleNom = l.Article.Nom,
+                    l.QuantiteDisponible,
+                    l.DateExpiration,
+                    JoursRestants = (l.DateExpiration!.Value - DateTime.Now).Days
+                })
+                .OrderBy(x => x.DateExpiration)
+                .ToListAsync();
+
+            return lotsExpiration;
+        }
+
+        // Évolution du chiffre d'affaires (30 derniers jours)
+        public async Task<object> GetEvolutionChiffreAffaireAsync()
+        {
+            var dateDebut = DateTime.Now.AddDays(-30);
+            
+            // Récupérer les données et faire le formatage côté client
+            var evolutionCA = await _context.Ventes
+                .Where(v => v.Date >= dateDebut)
+                .GroupBy(v => v.Date.Date)
+                .Select(g => new
+                {
+                    Date = g.Key,
+                    ChiffreAffaire = g.Sum(v => v.PrixTotal),
+                    NombreVentes = g.Count()
+                })
+                .OrderBy(x => x.Date)
+                .ToListAsync();
+
+            // Formater les dates côté client
+            var result = evolutionCA.Select(x => new
+            {
+                Date = x.Date.ToString("yyyy-MM-dd"),
+                x.ChiffreAffaire,
+                x.NombreVentes
+            }).ToList();
+
+            return result;
+        }
+
+        // Répartition des ventes par société
+        public async Task<object> GetVentesParSocieteAsync()
+        {
+            var ventesParSociete = await _context.Ventes
+                .Include(v => v.Societe)
+                .GroupBy(v => v.Societe.Nom)
+                .Select(g => new
+                {
+                    Societe = g.Key,
+                    NombreVentes = g.Count(),
+                    QuantiteVendue = g.Sum(v => v.QteVendu),
+                    ChiffreAffaire = g.Sum(v => v.PrixTotal),
+                    PourcentageCA = 0.0 // Sera calculé côté client
+                })
+                .OrderByDescending(x => x.ChiffreAffaire)
+                .ToListAsync();
+
+            // Calculer le pourcentage du CA
+            var totalCA = ventesParSociete.Sum(v => v.ChiffreAffaire);
+            var result = ventesParSociete.Select(v => new
+            {
+                v.Societe,
+                v.NombreVentes,
+                v.QuantiteVendue,
+                v.ChiffreAffaire,
+                PourcentageCA = totalCA > 0 ? Math.Round((v.ChiffreAffaire / totalCA) * 100, 2) : 0
+            });
+
+            return result;
+        }
+
+        // Articles en rupture de stock ou stock faible
+        public async Task<object> GetAlertsStockAsync()
+        {
+            var seuilCritique = 10; // Seuil configurable
+            
+            var alertsStock = await _context.Stocks
+                .Include(s => s.Article)
+                .Where(s => s.QteDispo <= seuilCritique && s.Article != null)
+                .Select(s => new
+                {
+                    ArticleNom = s.Article!.Nom,
+                    LotNum = s.NumLot,
+                    QuantiteActuelle = s.QteDispo,
+                    Statut = s.QteDispo == 0 ? "Rupture" : "Stock faible",
+                    SocieteNom = s.Societe.Nom,
+                    DateExpiration = s.DateExpiration
+                })
+                .OrderBy(s => s.QuantiteActuelle)
+                .ToListAsync();
+
+            return alertsStock;
+        }
+
+        // Statistiques des prix moyens par article
+        public async Task<object> GetPrixMoyenParArticleAsync()
+        {
+            var prixMoyens = await _context.Lots
+                .Include(l => l.Article)
+                .GroupBy(l => l.Article.Nom)
+                .Select(g => new
+                {
+                    Article = g.Key,
+                    PrixMoyen = Math.Round(g.Average(l => l.PrixUnitaire), 2),
+                    PrixMin = g.Min(l => l.PrixUnitaire),
+                    PrixMax = g.Max(l => l.PrixUnitaire),
+                    NombreLots = g.Count()
+                })
+                .OrderByDescending(x => x.PrixMoyen)
+                .ToListAsync();
+
+            return prixMoyens;
+        }
+
+        // Ventes par période (jour, semaine, mois)
+        public async Task<object> GetVentesParPeriodeAsync(string periode = "jour")
+        {
+            var query = _context.Ventes.AsQueryable();
+            
+            switch (periode.ToLower())
+            {
+                case "semaine":
+                    var debutSemaine = DateTime.Now.AddDays(-7);
+                    var ventesServi = await query
+                        .Where(v => v.Date >= debutSemaine)
+                        .GroupBy(v => v.Date.Date)
+                        .Select(g => new
+                        {
+                            Date = g.Key,
+                            NombreVentes = g.Count(),
+                            QuantiteVendue = g.Sum(v => v.QteVendu),
+                            ChiffreAffaire = g.Sum(v => v.PrixTotal)
+                        })
+                        .OrderBy(x => x.Date)
+                        .ToListAsync();
+                    
+                    return ventesServi.Select(x => new
+                    {
+                        Periode = x.Date.ToString("yyyy-MM-dd"),
+                        x.NombreVentes,
+                        x.QuantiteVendue,
+                        x.ChiffreAffaire
+                    }).ToList();
+
+                case "mois":
+                    var debutMois = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                    var ventesMois = await query
+                        .Where(v => v.Date >= debutMois)
+                        .GroupBy(v => v.Date.Date)
+                        .Select(g => new
+                        {
+                            Date = g.Key,
+                            NombreVentes = g.Count(),
+                            QuantiteVendue = g.Sum(v => v.QteVendu),
+                            ChiffreAffaire = g.Sum(v => v.PrixTotal)
+                        })
+                        .OrderBy(x => x.Date)
+                        .ToListAsync();
+                    
+                    return ventesMois.Select(x => new
+                    {
+                        Periode = x.Date.ToString("yyyy-MM-dd"),
+                        x.NombreVentes,
+                        x.QuantiteVendue,
+                        x.ChiffreAffaire
+                    }).ToList();
+
+                default: // jour
+                    var aujourdhui = DateTime.Now.Date;
+                    var ventesJour = await query
+                        .Where(v => v.Date.Date == aujourdhui)
+                        .GroupBy(v => v.Date.Hour)
+                        .Select(g => new
+                        {
+                            Heure = g.Key,
+                            NombreVentes = g.Count(),
+                            QuantiteVendue = g.Sum(v => v.QteVendu),
+                            ChiffreAffaire = g.Sum(v => v.PrixTotal)
+                        })
+                        .OrderBy(x => x.Heure)
+                        .ToListAsync();
+                    
+                    return ventesJour.Select(x => new
+                    {
+                        Periode = $"{x.Heure:D2}:00",
+                        x.NombreVentes,
+                        x.QuantiteVendue,
+                        x.ChiffreAffaire
+                    }).ToList();
+            }
+        }
+
+        // Analyse des performances des vendeurs
+        public async Task<object> GetPerformancesVendeursAsync()
+        {
+            // Cette méthode nécessiterait un lien entre Vente et Vendeur
+            // Pour l'instant, on retourne une structure basique
+            var vendeurs = await _context.Vendeurs
+                .Select(v => new
+                {
+                    v.Id,
+                    v.Nom,
+                    v.Email,
+                    NombreVentes = 0, // À implémenter avec la relation Vente-Vendeur
+                    ChiffreAffaire = 0.0,
+                    DateCreation = DateTime.Now // À ajouter au modèle Vendeur si nécessaire
+                })
+                .ToListAsync();
+
+            return vendeurs;
+        }
+
+        // Résumé des métriques clés pour les cartes du dashboard
+        public async Task<object> GetMetriquesClésAsync()
+        {
+            var aujourdhui = DateTime.Now.Date;
+            var debutMois = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var moisPrecedent = debutMois.AddMonths(-1);
+
+            var ventesAujourdhui = await _context.Ventes.CountAsync(v => v.Date.Date == aujourdhui);
+            var caAujourdhui = await _context.Ventes
+                .Where(v => v.Date.Date == aujourdhui)
+                .SumAsync(v => (double?)v.PrixTotal) ?? 0;
+
+            var ventesMoisActuel = await _context.Ventes.CountAsync(v => v.Date >= debutMois);
+            var caMoisActuel = await _context.Ventes
+                .Where(v => v.Date >= debutMois)
+                .SumAsync(v => (double?)v.PrixTotal) ?? 0;
+
+            var ventesMoisPrecedent = await _context.Ventes
+                .CountAsync(v => v.Date >= moisPrecedent && v.Date < debutMois);
+            var caMoisPrecedent = await _context.Ventes
+                .Where(v => v.Date >= moisPrecedent && v.Date < debutMois)
+                .SumAsync(v => (double?)v.PrixTotal) ?? 0;
+
+            var stockCritique = await _context.Stocks.CountAsync(s => s.QteDispo <= 10);
+            var lotsProchesExpiration = await _context.Lots
+                .CountAsync(l => l.DateExpiration.HasValue && 
+                               l.DateExpiration.Value <= DateTime.Now.AddDays(30) &&
+                               l.DateExpiration.Value >= DateTime.Now);
+
+            return new
+            {
+                VentesAujourdhui = ventesAujourdhui,
+                CAaujourdhui = Math.Round(caAujourdhui, 2),
+                VentesMoisActuel = ventesMoisActuel,
+                CAMoisActuel = Math.Round(caMoisActuel, 2),
+                EvolutionVentesMois = ventesMoisPrecedent > 0 
+                    ? Math.Round(((double)(ventesMoisActuel - ventesMoisPrecedent) / ventesMoisPrecedent) * 100, 1)
+                    : 0,
+                EvolutionCAMois = caMoisPrecedent > 0 
+                    ? Math.Round(((caMoisActuel - caMoisPrecedent) / caMoisPrecedent) * 100, 1) 
+                    : 0,
+                AlertesStockCritique = stockCritique,
+                LotsProchesExpiration = lotsProchesExpiration
+            };
+        }
+    }
+}

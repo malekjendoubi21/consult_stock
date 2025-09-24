@@ -1,0 +1,119 @@
+﻿using comsult_stock.Models;
+using comsult_stock.DTOs;
+using consult_stock.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace consult_stock.Services
+{
+    public class StockService
+    {
+        private readonly AppDbContext _context;
+
+        public StockService(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Stock>> GetAllAsync()
+        {
+            return await _context.Stocks
+                .Include(s => s.Societe)
+                .Include(s => s.Article)
+                .Include(s => s.Lot)
+                .ToListAsync();
+        }
+
+        public async Task<Stock?> GetByIdAsync(int id)
+        {
+            return await _context.Stocks
+                .Include(s => s.Societe)
+                .Include(s => s.Article)
+                .Include(s => s.Lot)
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<IEnumerable<Stock>> GetBySocieteIdAsync(int societeId)
+        {
+            return await _context.Stocks
+                .Include(s => s.Societe)
+                .Include(s => s.Article)
+                .Include(s => s.Lot)
+                .Where(s => s.SocieteId == societeId)
+                .ToListAsync();
+        }
+
+        public async Task<Stock> CreateAsync(Stock stock)
+        {
+            // Verify that Societe exists
+            var societeExists = await _context.Societes.AnyAsync(s => s.Id == stock.SocieteId);
+            if (!societeExists)
+                throw new ArgumentException("Société introuvable.");
+
+            // Auto-calculate values if Article and Lot are specified
+            if (stock.ArticleId.HasValue && stock.LotId.HasValue)
+            {
+                var article = await _context.Articles.FindAsync(stock.ArticleId.Value);
+                var lot = await _context.Lots.FindAsync(stock.LotId.Value);
+                
+                if (article != null && lot != null)
+                {
+                    // Auto-fill CodeBarre with Article code
+                    stock.CodeBarre = article.CodeArticle;
+                    
+                    // Auto-fill NumLot
+                    stock.NumLot = lot.NumLot;
+                    
+                    // Auto-calculate PrixTTC (can be overridden)
+                    if (stock.PrixTTC == 0)
+                        stock.PrixTTC = lot.PrixUnitaire;
+                    
+                    // Auto-calculate QteDispo based on lot availability
+                    if (stock.QteDispo == 0)
+                        stock.QteDispo = Math.Min(stock.QteDispo, lot.QuantiteDisponible);
+                        
+                    stock.DateExpiration = lot.DateExpiration;
+                }
+            }
+
+            _context.Stocks.Add(stock);
+            await _context.SaveChangesAsync();
+            return stock;
+        }
+
+        public async Task<Stock?> UpdateAsync(int id, Stock stock)
+        {
+            var existing = await _context.Stocks.FindAsync(id);
+            if (existing == null) return null;
+
+            // Verify that Societe exists if changing SocieteId
+            if (existing.SocieteId != stock.SocieteId)
+            {
+                var societeExists = await _context.Societes.AnyAsync(s => s.Id == stock.SocieteId);
+                if (!societeExists)
+                    throw new ArgumentException("Société introuvable.");
+            }
+
+            existing.SocieteId = stock.SocieteId;
+            existing.ArticleId = stock.ArticleId;
+            existing.LotId = stock.LotId;
+            existing.CodeBarre = stock.CodeBarre;
+            existing.NumLot = stock.NumLot;
+            existing.QteDispo = stock.QteDispo;
+            existing.PrixTTC = stock.PrixTTC;
+            existing.DateExpiration = stock.DateExpiration;
+
+            await _context.SaveChangesAsync();
+            return existing;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var stock = await _context.Stocks.FindAsync(id);
+            if (stock == null) return false;
+
+            _context.Stocks.Remove(stock);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+    }
+}

@@ -1,0 +1,75 @@
+﻿using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+
+namespace consult_stock.Filters
+{
+    public class SwaggerDocumentFilter : IDocumentFilter
+    {
+        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+        {
+            // Ajouter des tags personnalisés pour organiser les endpoints
+            swaggerDoc.Tags = new List<OpenApiTag>
+            {
+                new OpenApiTag
+                {
+                    Name = "Articles",
+                    Description = "Gestion des articles - CRUD et recherche"
+                },
+                new OpenApiTag
+                {
+                    Name = "Lots",
+                    Description = "Gestion des lots d'articles avec dates d'expiration"
+                },
+                new OpenApiTag
+                {
+                    Name = "Stocks",
+                    Description = "Gestion des stocks par société avec calculs automatiques"
+                },
+                new OpenApiTag
+                {
+                    Name = "Ventes",
+                    Description = "Gestion des ventes et génération de tickets"
+                },
+                new OpenApiTag
+                {
+                    Name = "Societes",
+                    Description = "Gestion des sociétés clientes"
+                },
+                new OpenApiTag
+                {
+                    Name = "Administrateurs",
+                    Description = "Gestion des comptes administrateurs"
+                },
+                new OpenApiTag
+                {
+                    Name = "Vendeurs",
+                    Description = "Gestion des comptes vendeurs"
+                },
+                new OpenApiTag
+                {
+                    Name = "Tickets",
+                    Description = "Gestion des tickets de vente"
+                },
+                new OpenApiTag
+                {
+                    Name = "ApiInfo",
+                    Description = "Informations générales sur l'API"
+                }
+            };
+
+            // Personnaliser les serveurs
+            swaggerDoc.Servers = new List<OpenApiServer>
+            {
+                new OpenApiServer { Url = "https://localhost:7000", Description = "Serveur de développement HTTPS" },
+                new OpenApiServer { Url = "http://localhost:5000", Description = "Serveur de développement HTTP" }
+            };
+
+            // Ajouter des informations de version et de contact
+            swaggerDoc.Info.Extensions.Add("x-logo", new Microsoft.OpenApi.Any.OpenApiObject
+            {
+                ["url"] = new Microsoft.OpenApi.Any.OpenApiString("/logo.png"),
+                ["altText"] = new Microsoft.OpenApi.Any.OpenApiString("Consult Stock Logo")
+            });
+        }
+    }
+}

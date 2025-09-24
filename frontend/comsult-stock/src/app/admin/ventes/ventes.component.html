@@ -1,0 +1,320 @@
+<div class="ventes-container p-6">
+  <!-- Header avec bouton d'ajout -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Gestion des Ventes</h1>
+    <button 
+      (click)="showAdd()" 
+      class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+      <i class="fas fa-plus"></i>
+      Ajouter une vente
+    </button>
+  </div>
+
+  <!-- Liste des ventes -->
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full table-auto">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Société</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Article</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lot</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qté Vendue</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix Total</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let vente of ventes" class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {{ vente.id }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ getSocieteNom(vente.societeId) }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ vente.article }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ vente.lot }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ vente.qteVendu }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ formatDate(vente.date) }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              {{ vente.prixTotal | currency:'EUR':'symbol':'1.2-2' }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+              <div class="flex justify-center gap-2">
+                <button 
+                  (click)="showDetail(vente)"
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button 
+                  (click)="showEdit(vente)"
+                  class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button 
+                  (click)="deleteVente(vente.id!)"
+                  class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs transition-colors">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Card d'ajout -->
+  <div *ngIf="showAddCard" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Ajouter une vente</h3>
+      </div>
+      <div class="px-6 py-4">
+        <form (ngSubmit)="saveVente()">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Société</label>
+            <select 
+              [(ngModel)]="currentVente.societeId" 
+              name="societeId"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+              <option value="0">Sélectionner une société</option>
+              <option *ngFor="let societe of societes" [value]="societe.id">
+                {{ societe.nom }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Article</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentVente.article" 
+              name="article"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Lot</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentVente.lot" 
+              name="lot"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Quantité Vendue</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentVente.qteVendu" 
+              name="qteVendu"
+              min="1"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+            <input 
+              type="date" 
+              [(ngModel)]="currentVente.date" 
+              name="date"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Prix Unitaire</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentVente.prixUnitaire" 
+              name="prixUnitaire"
+              step="0.01"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Prix Total</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentVente.prixTotal" 
+              name="prixTotal"
+              step="0.01"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="flex justify-end gap-3">
+            <button 
+              type="button" 
+              (click)="hideAllCards()"
+              class="px-4 py-2 text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors">
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors">
+              Ajouter
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card de modification -->
+  <div *ngIf="showEditCard" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Modifier la vente</h3>
+      </div>
+      <div class="px-6 py-4">
+        <form (ngSubmit)="saveVente()">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Société</label>
+            <select 
+              [(ngModel)]="currentVente.societeId" 
+              name="societeId"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+              <option value="0">Sélectionner une société</option>
+              <option *ngFor="let societe of societes" [value]="societe.id">
+                {{ societe.nom }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Article</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentVente.article" 
+              name="article"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Lot</label>
+            <input 
+              type="text" 
+              [(ngModel)]="currentVente.lot" 
+              name="lot"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Quantité Vendue</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentVente.qteVendu" 
+              name="qteVendu"
+              min="1"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+            <input 
+              type="date" 
+              [(ngModel)]="currentVente.date" 
+              name="date"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Prix Unitaire</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentVente.prixUnitaire" 
+              name="prixUnitaire"
+              step="0.01"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Prix Total</label>
+            <input 
+              type="number" 
+              [(ngModel)]="currentVente.prixTotal" 
+              name="prixTotal"
+              step="0.01"
+              min="0"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="flex justify-end gap-3">
+            <button 
+              type="button" 
+              (click)="hideAllCards()"
+              class="px-4 py-2 text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors">
+              Annuler
+            </button>
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded transition-colors">
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card de détail -->
+  <div *ngIf="showDetailCard && selectedVente" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-medium text-gray-900">Détails de la vente</h3>
+      </div>
+      <div class="px-6 py-4">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">ID</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedVente.id }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Société</label>
+            <p class="mt-1 text-sm text-gray-900">{{ getSocieteNom(selectedVente.societeId) }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Article</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedVente.article }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Lot</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedVente.lot }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Quantité Vendue</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedVente.qteVendu }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Date</label>
+            <p class="mt-1 text-sm text-gray-900">{{ formatDate(selectedVente.date) }}</p>
+          </div>
+          <div *ngIf="selectedVente.prixUnitaire">
+            <label class="block text-sm font-medium text-gray-700">Prix Unitaire</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedVente.prixUnitaire | currency:'EUR':'symbol':'1.2-2' }}</p>
+          </div>
+          <div *ngIf="selectedVente.prixTotal">
+            <label class="block text-sm font-medium text-gray-700">Prix Total</label>
+            <p class="mt-1 text-sm text-gray-900">{{ selectedVente.prixTotal | currency:'EUR':'symbol':'1.2-2' }}</p>
+          </div>
+        </div>
+        <div class="flex justify-end mt-6">
+          <button 
+            (click)="hideAllCards()"
+            class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition-colors">
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

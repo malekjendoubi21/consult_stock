@@ -1,0 +1,62 @@
+﻿namespace comsult_stock.DTOs
+{
+    /// <summary>
+    /// DTO pour modifier le profil vendeur (sans mot de passe)
+    /// </summary>
+    public class UpdateProfileVendeurDto
+    {
+        public string Nom { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Valide les données du profil
+        /// </summary>
+        public List<string> Valider()
+        {
+            var erreurs = new List<string>();
+            
+            if (string.IsNullOrWhiteSpace(Nom))
+                erreurs.Add("Le nom est requis.");
+                
+            if (string.IsNullOrWhiteSpace(Email))
+                erreurs.Add("L'email est requis.");
+            else if (!Email.Contains("@"))
+                erreurs.Add("L'email doit avoir un format valide.");
+                
+            return erreurs;
+        }
+    }
+    
+    /// <summary>
+    /// DTO pour changer le mot de passe vendeur
+    /// </summary>
+    public class ChangePasswordVendeurDto
+    {
+        public string CurrentPassword { get; set; } = string.Empty;
+        public string NewPassword { get; set; } = string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Valide les données de changement de mot de passe
+        /// </summary>
+        public List<string> Valider()
+        {
+            var erreurs = new List<string>();
+            
+            if (string.IsNullOrWhiteSpace(CurrentPassword))
+                erreurs.Add("Le mot de passe actuel est requis.");
+                
+            if (string.IsNullOrWhiteSpace(NewPassword))
+                erreurs.Add("Le nouveau mot de passe est requis.");
+            else if (NewPassword.Length < 6)
+                erreurs.Add("Le nouveau mot de passe doit contenir au moins 6 caractères.");
+                
+            if (string.IsNullOrWhiteSpace(ConfirmPassword))
+                erreurs.Add("La confirmation du mot de passe est requise.");
+            else if (NewPassword != ConfirmPassword)
+                erreurs.Add("Le nouveau mot de passe et sa confirmation ne correspondent pas.");
+                
+            return erreurs;
+        }
+    }
+}

@@ -1,0 +1,529 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>comsult-stock</name>
+    </assembly>
+    <members>
+        <member name="M:consult_stock.Controllers.ApiInfoController.GetApiInfo">
+            <summary>
+            Informations sur l'API
+            </summary>
+            <returns>Informations générales sur l'API</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.ApiInfoController.HealthCheck">
+            <summary>
+            Vérification de l'état de l'API
+            </summary>
+            <returns>État de santé de l'API</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.ArticlesController.GetAll">
+            <summary>
+            Récupère tous les articles
+            </summary>
+            <returns>Liste de tous les articles</returns>
+            <response code="200">Retourne la liste des articles</response>
+        </member>
+        <member name="M:consult_stock.Controllers.ArticlesController.GetById(System.Int32)">
+            <summary>
+            Récupère un article par son ID
+            </summary>
+            <param name="id">ID de l'article</param>
+            <returns>L'article correspondant</returns>
+            <response code="200">Retourne l'article</response>
+            <response code="404">Article non trouvé</response>
+        </member>
+        <member name="M:consult_stock.Controllers.ArticlesController.Search(System.String)">
+            <summary>
+            Recherche des articles par terme
+            </summary>
+            <param name="term">Terme de recherche</param>
+            <returns>Articles correspondant au terme de recherche</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.ArticlesController.GetByCode(System.String)">
+            <summary>
+            Récupère un article par son code
+            </summary>
+            <param name="code">Code de l'article</param>
+            <returns>L'article correspondant au code</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.ArticlesController.GetBySocieteId(System.Int32)">
+            <summary>
+            Récupère les articles d'une société
+            </summary>
+            <param name="societeId">ID de la société</param>
+            <returns>Articles de la société</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.ArticlesController.GetArticlesForSelect">
+            <summary>
+            Récupère tous les articles pour liste déroulante
+            </summary>
+            <returns>Articles formatés pour liste déroulante</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.ArticlesController.GetArticlesWithStockBySociete(System.Int32)">
+            <summary>
+            Récupère les articles avec stock pour une société
+            </summary>
+            <param name="societeId">ID de la société</param>
+            <returns>Articles avec stock disponible</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.ArticlesController.Create(comsult_stock.DTOs.CreateArticleDto)">
+            <summary>
+            Crée un nouvel article (Admin uniquement)
+            </summary>
+            <param name="dto">Données de l'article à créer</param>
+            <returns>Article créé</returns>
+            <response code="201">Article créé avec succès</response>
+            <response code="400">Données invalides</response>
+            <response code="401">Non autorisé</response>
+        </member>
+        <member name="M:consult_stock.Controllers.ArticlesController.Update(System.Int32,comsult_stock.DTOs.UpdateArticleDto)">
+            <summary>
+            Met à jour un article existant (Admin uniquement)
+            </summary>
+            <param name="id">ID de l'article à mettre à jour</param>
+            <param name="dto">Données mises à jour de l'article</param>
+            <returns>Article mis à jour</returns>
+            <response code="200">Article mis à jour avec succès</response>
+            <response code="400">Données invalides</response>
+            <response code="401">Non autorisé</response>
+            <response code="404">Article non trouvé</response>
+        </member>
+        <member name="M:consult_stock.Controllers.ArticlesController.Delete(System.Int32)">
+            <summary>
+            Supprime un article (Admin uniquement)
+            </summary>
+            <param name="id">ID de l'article à supprimer</param>
+            <returns>Résultat de la suppression</returns>
+            <response code="204">Article supprimé avec succès</response>
+            <response code="401">Non autorisé</response>
+            <response code="404">Article non trouvé</response>
+        </member>
+        <member name="M:consult_stock.Controllers.AuthController.Register(consult_stock.DTOs.RegisterVendeurDto)">
+            <summary>
+            Inscription d'un nouveau vendeur
+            </summary>
+            <param name="dto">Données d'inscription</param>
+            <returns>Informations du vendeur créé</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.AuthController.Login(consult_stock.DTOs.LoginVendeurDto)">
+            <summary>
+            Connexion d'un vendeur
+            </summary>
+            <param name="dto">Identifiants de connexion</param>
+            <returns>Token JWT</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.AuthController.Profile">
+            <summary>
+            Récupère le profil du vendeur connecté
+            </summary>
+            <returns>Informations du profil</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.AuthController.UpdateProfile(consult_stock.DTOs.UpdateProfileVendeurDto)">
+            <summary>
+            Met à jour le profil du vendeur (nom et email uniquement)
+            </summary>
+            <param name="dto">Nouvelles données du profil</param>
+            <returns>Profil mis à jour</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.AuthController.ChangePassword(consult_stock.DTOs.ChangePasswordVendeurDto)">
+            <summary>
+            Change le mot de passe du vendeur
+            </summary>
+            <param name="dto">Données de changement de mot de passe</param>
+            <returns>Confirmation du changement</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.AuthController.VerifyPassword(System.String)">
+            <summary>
+            Vérifie le mot de passe actuel (utile pour les interfaces)
+            </summary>
+            <param name="dto">Mot de passe à vérifier</param>
+            <returns>Résultat de la vérification</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.AuthController.GenerateJwtToken(comsult_stock.Models.Vendeur)">
+            <summary>
+            Génère un token JWT pour le vendeur
+            </summary>
+        </member>
+        <member name="M:consult_stock.Controllers.AuthController.ForgotPassword(Microsoft.AspNetCore.Identity.Data.ForgotPasswordRequest)">
+            <summary>
+            Mot de passe oublié : envoie un code par email
+            </summary>
+        </member>
+        <member name="M:consult_stock.Controllers.AuthController.ResetPassword(Microsoft.AspNetCore.Identity.Data.ResetPasswordRequest)">
+            <summary>
+            Réinitialise le mot de passe avec le code reçu par email
+            </summary>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetGeneralStats">
+            <summary>
+            Obtient les statistiques générales de l'application
+            </summary>
+            <returns>Statistiques générales incluant les totaux</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetMetriquesClés">
+            <summary>
+            Obtient les métriques clés pour les cartes du dashboard
+            </summary>
+            <returns>Métriques clés avec évolutions</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.TestAuth">
+            <summary>
+            Endpoint pour tester l'authentification (optionnel)
+            </summary>
+            <returns>Informations sur l'utilisateur connecté ou statut non connecté</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetMetriquesPublic">
+            <summary>
+            Version publique des métriques de base (pour test)
+            </summary>
+            <returns>Métriques de base sans authentification</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetVentesParMois">
+            <summary>
+            Obtient les statistiques des ventes par mois (12 derniers mois)
+            </summary>
+            <returns>Données pour graphique en courbes des ventes mensuelles</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetVentesParPeriode(System.String)">
+            <summary>
+            Obtient les ventes par période (jour/semaine/mois)
+            </summary>
+            <param name="periode">Période : jour, semaine, ou mois</param>
+            <returns>Données des ventes pour la période spécifiée</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetTopArticlesVendus">
+            <summary>
+            Obtient le top 10 des articles les plus vendus
+            </summary>
+            <returns>Données pour graphique en barres des articles populaires</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetStockParArticle">
+            <summary>
+            Obtient les statistiques des stocks par article
+            </summary>
+            <returns>Données pour graphique des niveaux de stock</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetLotsExpirationProches">
+            <summary>
+            Obtient les lots proches de l'expiration (30 jours)
+            </summary>
+            <returns>Liste des lots avec dates d'expiration proches</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetEvolutionChiffreAffaire">
+            <summary>
+            Obtient l'évolution du chiffre d'affaires (30 derniers jours)
+            </summary>
+            <returns>Données pour graphique en courbes du CA quotidien</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetVentesParSociete">
+            <summary>
+            Obtient la répartition des ventes par société
+            </summary>
+            <returns>Données pour graphique en secteurs (pie chart) des ventes par société</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetAlertsStock">
+            <summary>
+            Obtient les alertes de stock (ruptures et stocks faibles)
+            </summary>
+            <returns>Liste des articles avec des alertes de stock</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetPrixMoyenParArticle">
+            <summary>
+            Obtient les statistiques des prix moyens par article
+            </summary>
+            <returns>Données des prix (min, max, moyen) par article</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetPerformancesVendeurs">
+            <summary>
+            Obtient les performances des vendeurs
+            </summary>
+            <returns>Données des performances de chaque vendeur</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetResumeComplet">
+            <summary>
+            Obtient un résumé complet pour le dashboard principal
+            </summary>
+            <returns>Résumé avec toutes les données principales</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.AuthDebug">
+            <summary>
+            Endpoint pour diagnostiquer les problèmes d'authentification
+            </summary>
+            <returns>Informations détaillées sur l'état d'authentification</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.GetAdminStatus">
+            <summary>
+            Endpoint pour vérifier l'existence des administrateurs (développement uniquement)
+            </summary>
+            <returns>Informations sur les administrateurs du système</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.DashboardController.HealthCheck">
+            <summary>
+            Endpoint de test pour vérifier que le dashboard fonctionne
+            </summary>
+            <returns>Statut de santé du dashboard</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.VentesController.CreateAvecCalcul(comsult_stock.DTOs.VenteArticleDto)">
+            <summary>
+            Crée une vente avec calcul automatique des prix
+            </summary>
+            <param name="dto">Données de la vente avec calcul automatique</param>
+            <returns>Vente créée avec prix calculés automatiquement</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.VentesController.UpdateAvecCalcul(System.Int32,comsult_stock.DTOs.UpdateVenteArticleDto)">
+            <summary>
+            Met à jour une vente avec recalcul automatique des prix
+            </summary>
+            <param name="id">ID de la vente</param>
+            <param name="dto">Nouvelles données avec recalcul automatique</param>
+            <returns>Vente mise à jour</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.VentesController.VenteRapide(comsult_stock.DTOs.VenteArticleDto)">
+            <summary>
+            Endpoint optimisé pour les vendeurs - vente rapide avec calcul automatique
+            </summary>
+            <param name="dto">Données de vente</param>
+            <returns>Vente créée avec tickets</returns>
+        </member>
+        <member name="M:consult_stock.Controllers.VentesController.VendreArticle(comsult_stock.DTOs.VenteArticleDto)">
+            <summary>
+            Endpoint legacy pour compatibilité (déprécié - utilisez vente-rapide)
+            </summary>
+        </member>
+        <member name="M:consult_stock.Controllers.VentesController.ValiderVente(comsult_stock.DTOs.VenteArticleDto)">
+            <summary>
+            Endpoint pour valider une vente avant création (simulation)
+            </summary>
+            <param name="dto">Données de vente à valider</param>
+            <returns>Informations de validation et prix calculés</returns>
+        </member>
+        <member name="T:consult_stock.DTOs.UpdateProfileVendeurDto">
+            <summary>
+            DTO pour modifier le profil vendeur (sans mot de passe)
+            </summary>
+        </member>
+        <member name="M:consult_stock.DTOs.UpdateProfileVendeurDto.Valider">
+            <summary>
+            Valide les données du profil
+            </summary>
+        </member>
+        <member name="T:consult_stock.DTOs.ChangePasswordVendeurDto">
+            <summary>
+            DTO pour changer le mot de passe vendeur
+            </summary>
+        </member>
+        <member name="M:consult_stock.DTOs.ChangePasswordVendeurDto.Valider">
+            <summary>
+            Valide les données de changement de mot de passe
+            </summary>
+        </member>
+        <member name="T:consult_stock.Filters.SimpleSwaggerDocumentFilter">
+            <summary>
+            Filtre Swagger simple et robuste
+            </summary>
+        </member>
+        <member name="M:consult_stock.Services.AdministrateurService.EnsureAtLeastOneAdminExistsAsync(consult_stock.Data.AppDbContext)">
+            <summary>
+            S'assure qu'au moins un administrateur existe dans le système
+            </summary>
+        </member>
+        <member name="M:consult_stock.Services.AdministrateurService.ResetDefaultAdminPasswordAsync(consult_stock.Data.AppDbContext)">
+            <summary>
+            Méthode pour réinitialiser le mot de passe de l'admin principal
+            </summary>
+        </member>
+        <member name="M:consult_stock.Services.VendeurService.UpdateProfileAsync(System.String,System.String,System.String)">
+            <summary>
+            Met à jour le profil du vendeur (nom et email uniquement)
+            </summary>
+        </member>
+        <member name="M:consult_stock.Services.VendeurService.ChangePasswordAsync(System.String,System.String,System.String)">
+            <summary>
+            Change le mot de passe du vendeur après vérification de l'ancien
+            </summary>
+        </member>
+        <member name="M:consult_stock.Services.VendeurService.VerifyPasswordAsync(System.String,System.String)">
+            <summary>
+            Vérifie si un mot de passe est correct pour un vendeur
+            </summary>
+        </member>
+        <member name="M:consult_stock.Services.VenteService.CreateVenteAvecCalculAsync(comsult_stock.DTOs.VenteArticleDto)">
+            <summary>
+            Crée une vente avec calcul automatique des prix basé sur VenteArticleDto
+            </summary>
+        </member>
+        <member name="M:consult_stock.Services.VenteService.UpdateVenteAvecCalculAsync(System.Int32,comsult_stock.DTOs.UpdateVenteArticleDto)">
+            <summary>
+            Met à jour une vente avec recalcul automatique des prix
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.GeneralStatsDto">
+            <summary>
+            Statistiques générales de l'application
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.VenteParMoisDto">
+            <summary>
+            Statistiques des ventes par mois
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.TopArticleDto">
+            <summary>
+            Top des articles les plus vendus
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.StockParArticleDto">
+            <summary>
+            Statistiques des stocks par article
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.LotExpirationDto">
+            <summary>
+            Informations sur les lots proches de l'expiration
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.EvolutionCADto">
+            <summary>
+            Évolution du chiffre d'affaires
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.VenteParSocieteDto">
+            <summary>
+            Répartition des ventes par société
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.AlertStockDto">
+            <summary>
+            Alertes de stock
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.PrixMoyenDto">
+            <summary>
+            Prix moyens par article
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.MetriquesClésDto">
+            <summary>
+            Métriques clés pour le dashboard
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.VenteParPeriodeDto">
+            <summary>
+            Données des ventes par période
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.PerformanceVendeurDto">
+            <summary>
+            Performances des vendeurs
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.ResumeCompletDto">
+            <summary>
+            Résumé complet du dashboard
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.VenteArticleDto">
+            <summary>
+            DTO pour la création d'une vente avec calcul automatique des prix
+            </summary>
+        </member>
+        <member name="M:comsult_stock.DTOs.VenteArticleDto.CalculerPrix(System.Double,System.Int32)">
+            <summary>
+            Calcule automatiquement les prix basés sur les données du lot
+            </summary>
+            <param name="prixUnitaireLot">Prix unitaire du lot</param>
+            <param name="quantite">Quantité vendue</param>
+        </member>
+        <member name="M:comsult_stock.DTOs.VenteArticleDto.SetInformationsComplementaires(System.String,System.String,System.Nullable{System.DateTime},System.Int32)">
+            <summary>
+            Met à jour les informations complémentaires
+            </summary>
+        </member>
+        <member name="M:comsult_stock.DTOs.VenteArticleDto.Valider">
+            <summary>
+            Valide les données de base
+            </summary>
+            <returns>Liste des erreurs de validation</returns>
+        </member>
+        <member name="T:comsult_stock.DTOs.VenteCreatedResponseDto">
+            <summary>
+            DTO de réponse pour une vente créée
+            </summary>
+        </member>
+        <member name="T:comsult_stock.DTOs.UpdateVenteArticleDto">
+            <summary>
+            DTO pour la mise à jour d'une vente avec recalcul automatique
+            </summary>
+        </member>
+        <member name="M:comsult_stock.DTOs.UpdateVenteArticleDto.CalculerPrix(System.Double,System.Int32)">
+            <summary>
+            Calcule automatiquement les prix
+            </summary>
+        </member>
+        <member name="M:comsult_stock.DTOs.UpdateVenteArticleDto.Valider">
+            <summary>
+            Valide les données de mise à jour
+            </summary>
+        </member>
+        <member name="T:comsult_stock.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:comsult_stock.Migrations.InitialCreatee">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.InitialCreatee.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.InitialCreatee.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.InitialCreatee.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:comsult_stock.Migrations.mig">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.mig.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.mig.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.mig.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:comsult_stock.Migrations.UpdateModelsWithNewFields">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.UpdateModelsWithNewFields.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.UpdateModelsWithNewFields.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.UpdateModelsWithNewFields.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:comsult_stock.Migrations.ConfigureRelationshipsFixed">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.ConfigureRelationshipsFixed.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.ConfigureRelationshipsFixed.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:comsult_stock.Migrations.ConfigureRelationshipsFixed.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

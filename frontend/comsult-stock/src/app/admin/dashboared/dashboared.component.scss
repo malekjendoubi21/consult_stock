@@ -1,0 +1,117 @@
+// Animations personnalisées pour le dashboard
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+// Skeleton loading pour les cartes
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+// Améliorations des hover effects
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+// Effets de glassmorphism améliorés
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+// Barre de progression personnalisée
+.progress-bar {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: shimmer 2s infinite;
+  }
+}
+
+// Responsive improvements
+@media (max-width: 768px) {
+  .mobile-stack {
+    flex-direction: column;
+    
+    .mobile-full {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+// Dark mode support (pour future implémentation)
+@media (prefers-color-scheme: dark) {
+  .glass-card {
+    background: rgba(17, 24, 39, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+// Amélioration des focus states pour l'accessibilité
+button:focus,
+input:focus {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+// Animations d'entrée pour les sections
+.section-enter {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.section-enter:nth-child(1) { animation-delay: 0.1s; }
+.section-enter:nth-child(2) { animation-delay: 0.2s; }
+.section-enter:nth-child(3) { animation-delay: 0.3s; }
+.section-enter:nth-child(4) { animation-delay: 0.4s; }
+.section-enter:nth-child(5) { animation-delay: 0.5s; }

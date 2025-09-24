@@ -1,0 +1,2105 @@
+[
+  {
+    "ContainingType": "consult_stock.Controllers.AdministrateursController",
+    "Method": "GetAll",
+    "RelativePath": "api/Administrateurs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AdministrateursController",
+    "Method": "GetById",
+    "RelativePath": "api/Administrateurs/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AdministrateursController",
+    "Method": "Update",
+    "RelativePath": "api/Administrateurs/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.Models.Administrateur",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AdministrateursController",
+    "Method": "Delete",
+    "RelativePath": "api/Administrateurs/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AdministrateursController",
+    "Method": "Login",
+    "RelativePath": "api/Administrateurs/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.Models.Administrateur",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AdministrateursController",
+    "Method": "Profile",
+    "RelativePath": "api/Administrateurs/profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AdministrateursController",
+    "Method": "Register",
+    "RelativePath": "api/Administrateurs/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.Models.Administrateur",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AdministrateursController",
+    "Method": "ResetDefaultAdmin",
+    "RelativePath": "api/Administrateurs/reset-default-admin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "consult_stock.Controllers.ResetAdminRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ArticlesController",
+    "Method": "GetAll",
+    "RelativePath": "api/Articles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[comsult_stock.Models.Article, comsult-stock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Articles"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ArticlesController",
+    "Method": "Create",
+    "RelativePath": "api/Articles",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.CreateArticleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "comsult_stock.Models.Article",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 401
+      }
+    ],
+    "Tags": [
+      "Articles"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ArticlesController",
+    "Method": "GetById",
+    "RelativePath": "api/Articles/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "comsult_stock.Models.Article",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Articles"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ArticlesController",
+    "Method": "Update",
+    "RelativePath": "api/Articles/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.UpdateArticleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "comsult_stock.Models.Article",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Articles"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ArticlesController",
+    "Method": "Delete",
+    "RelativePath": "api/Articles/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Articles"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ArticlesController",
+    "Method": "GetByCode",
+    "RelativePath": "api/Articles/code/{code}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "comsult_stock.Models.Article",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Articles"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ArticlesController",
+    "Method": "Search",
+    "RelativePath": "api/Articles/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "term",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[comsult_stock.Models.Article, comsult-stock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Articles"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ArticlesController",
+    "Method": "GetArticlesForSelect",
+    "RelativePath": "api/Articles/select",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[comsult_stock.DTOs.ArticleSelectDto, comsult-stock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Articles"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ArticlesController",
+    "Method": "GetArticlesWithStockBySociete",
+    "RelativePath": "api/Articles/select/societe/{societeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "societeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[comsult_stock.DTOs.ArticleSelectDto, comsult-stock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Articles"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ArticlesController",
+    "Method": "GetBySocieteId",
+    "RelativePath": "api/Articles/societe/{societeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "societeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[comsult_stock.Models.Article, comsult-stock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Articles"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AuthController",
+    "Method": "ChangePassword",
+    "RelativePath": "api/Auth/change-password",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "consult_stock.DTOs.ChangePasswordVendeurDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Authentication"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AuthController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/Auth/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Microsoft.AspNetCore.Identity.Data.ForgotPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Authentication"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "consult_stock.DTOs.LoginVendeurDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Authentication"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AuthController",
+    "Method": "Profile",
+    "RelativePath": "api/Auth/profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Authentication"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AuthController",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/Auth/profile",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "consult_stock.DTOs.UpdateProfileVendeurDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Authentication"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "consult_stock.DTOs.RegisterVendeurDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Authentication"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AuthController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/Auth/reset-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Microsoft.AspNetCore.Identity.Data.ResetPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Authentication"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.AuthController",
+    "Method": "VerifyPassword",
+    "RelativePath": "api/Auth/verify-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "password",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 401
+      }
+    ],
+    "Tags": [
+      "Authentication"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursBackofficeController",
+    "Method": "GetAll",
+    "RelativePath": "api/backoffice/vendeurs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursBackofficeController",
+    "Method": "Create",
+    "RelativePath": "api/backoffice/vendeurs",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.CreateVendeurDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursBackofficeController",
+    "Method": "GetById",
+    "RelativePath": "api/backoffice/vendeurs/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursBackofficeController",
+    "Method": "Update",
+    "RelativePath": "api/backoffice/vendeurs/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.UpdateVendeurDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursBackofficeController",
+    "Method": "Delete",
+    "RelativePath": "api/backoffice/vendeurs/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursBackofficeController",
+    "Method": "Search",
+    "RelativePath": "api/backoffice/vendeurs/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "term",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetAdminStatus",
+    "RelativePath": "api/Dashboard/admin-status",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetAlertsStock",
+    "RelativePath": "api/Dashboard/alertes/stock",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetPrixMoyenParArticle",
+    "RelativePath": "api/Dashboard/articles/prix-moyens",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetTopArticlesVendus",
+    "RelativePath": "api/Dashboard/articles/top-vendus",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "AuthDebug",
+    "RelativePath": "api/Dashboard/auth-debug",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "TestAuth",
+    "RelativePath": "api/Dashboard/auth-test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetEvolutionChiffreAffaire",
+    "RelativePath": "api/Dashboard/chiffre-affaire/evolution",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "HealthCheck",
+    "RelativePath": "api/Dashboard/health",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetLotsExpirationProches",
+    "RelativePath": "api/Dashboard/lots/expiration-proches",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetMetriquesCl\u00E9s",
+    "RelativePath": "api/Dashboard/metriques",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetMetriquesPublic",
+    "RelativePath": "api/Dashboard/metriques-public",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetResumeComplet",
+    "RelativePath": "api/Dashboard/resume-complet",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetGeneralStats",
+    "RelativePath": "api/Dashboard/stats/general",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetStockParArticle",
+    "RelativePath": "api/Dashboard/stocks/par-article",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetPerformancesVendeurs",
+    "RelativePath": "api/Dashboard/vendeurs/performances",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetVentesParMois",
+    "RelativePath": "api/Dashboard/ventes/par-mois",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetVentesParPeriode",
+    "RelativePath": "api/Dashboard/ventes/par-periode",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "periode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.DashboardController",
+    "Method": "GetVentesParSociete",
+    "RelativePath": "api/Dashboard/ventes/par-societe",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Dashboard"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ApiInfoController",
+    "Method": "HealthCheck",
+    "RelativePath": "api/health",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "ApiInfo"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.ApiInfoController",
+    "Method": "GetApiInfo",
+    "RelativePath": "api/info",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "ApiInfo"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.LotsController",
+    "Method": "GetAll",
+    "RelativePath": "api/Lots",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "Lots"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.LotsController",
+    "Method": "Create",
+    "RelativePath": "api/Lots",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.CreateLotDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Lots"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.LotsController",
+    "Method": "GetById",
+    "RelativePath": "api/Lots/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Lots"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.LotsController",
+    "Method": "Update",
+    "RelativePath": "api/Lots/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.UpdateLotDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Lots"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.LotsController",
+    "Method": "Delete",
+    "RelativePath": "api/Lots/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Lots"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.LotsController",
+    "Method": "UpdateQuantite",
+    "RelativePath": "api/Lots/{id}/quantite",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nouvelleQuantite",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Lots"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.LotsController",
+    "Method": "GetByArticleId",
+    "RelativePath": "api/Lots/article/{articleId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "articleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Lots"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.LotsController",
+    "Method": "GetLotsForSelect",
+    "RelativePath": "api/Lots/select/article/{articleId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "articleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Lots"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.SocietesController",
+    "Method": "GetAll",
+    "RelativePath": "api/Societes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "Societes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.SocietesController",
+    "Method": "Create",
+    "RelativePath": "api/Societes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.CreateSocieteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Societes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.SocietesController",
+    "Method": "GetById",
+    "RelativePath": "api/Societes/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Societes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.SocietesController",
+    "Method": "Update",
+    "RelativePath": "api/Societes/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.UpdateSocieteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Societes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.SocietesController",
+    "Method": "Delete",
+    "RelativePath": "api/Societes/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Societes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.StocksController",
+    "Method": "GetAll",
+    "RelativePath": "api/Stocks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "Stocks"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.StocksController",
+    "Method": "Create",
+    "RelativePath": "api/Stocks",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.CreateStockDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Stocks"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.StocksController",
+    "Method": "GetById",
+    "RelativePath": "api/Stocks/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Stocks"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.StocksController",
+    "Method": "Update",
+    "RelativePath": "api/Stocks/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.UpdateStockDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Stocks"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.StocksController",
+    "Method": "Delete",
+    "RelativePath": "api/Stocks/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Stocks"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.StocksController",
+    "Method": "GetStockConsultation",
+    "RelativePath": "api/Stocks/consultation/societe/{societeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "societeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Stocks"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.StocksController",
+    "Method": "GetDebugData",
+    "RelativePath": "api/Stocks/debug/data",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "Stocks"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.StocksController",
+    "Method": "GetBySocieteId",
+    "RelativePath": "api/Stocks/societe/{societeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "societeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Stocks"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.TicketsController",
+    "Method": "GetAll",
+    "RelativePath": "api/Tickets",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.TicketsController",
+    "Method": "GetById",
+    "RelativePath": "api/Tickets/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.TicketsController",
+    "Method": "GetTicketPdf",
+    "RelativePath": "api/Tickets/{id}/pdf",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.TicketsController",
+    "Method": "GetByCodeBarre",
+    "RelativePath": "api/Tickets/barcode/{codeBarre}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "codeBarre",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.TicketsController",
+    "Method": "GenerateBarcode",
+    "RelativePath": "api/Tickets/generate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursController",
+    "Method": "GetAll",
+    "RelativePath": "api/Vendeurs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursController",
+    "Method": "Create",
+    "RelativePath": "api/Vendeurs",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vendeur",
+        "Type": "comsult_stock.Models.Vendeur",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursController",
+    "Method": "GetById",
+    "RelativePath": "api/Vendeurs/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursController",
+    "Method": "Update",
+    "RelativePath": "api/Vendeurs/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "vendeur",
+        "Type": "comsult_stock.Models.Vendeur",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VendeursController",
+    "Method": "Delete",
+    "RelativePath": "api/Vendeurs/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "GetAll",
+    "RelativePath": "api/Ventes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "Create",
+    "RelativePath": "api/Ventes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.CreateVenteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "GetById",
+    "RelativePath": "api/Ventes/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "Update",
+    "RelativePath": "api/Ventes/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.UpdateVenteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "Delete",
+    "RelativePath": "api/Ventes/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "UpdateAvecCalcul",
+    "RelativePath": "api/Ventes/{id}/avec-calcul",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.UpdateVenteArticleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "comsult_stock.DTOs.VenteCreatedResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "VendreArticle",
+    "RelativePath": "api/Ventes/article",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.VenteArticleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "CreateAvecCalcul",
+    "RelativePath": "api/Ventes/avec-calcul",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.VenteArticleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "comsult_stock.DTOs.VenteCreatedResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "GetBySocieteId",
+    "RelativePath": "api/Ventes/societe/{societeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "societeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "ValiderVente",
+    "RelativePath": "api/Ventes/valider",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.VenteArticleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "consult_stock.Controllers.VentesController",
+    "Method": "VenteRapide",
+    "RelativePath": "api/Ventes/vente-rapide",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "comsult_stock.DTOs.VenteArticleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "comsult_stock.DTOs.VenteCreatedResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Ventes"
+    ]
+  },
+  {
+    "ContainingType": "comsult_stock.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[comsult_stock.WeatherForecast, comsult-stock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]

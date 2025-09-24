@@ -1,0 +1,320 @@
+<!-- Background avec dégradé moderne -->
+<div class="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 p-6">
+  <div class="container mx-auto">
+    
+    <!-- Header du Dashboard -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent mb-2">
+            Tableau de Bord
+          </h1>
+          <p class="text-lg text-slate-600 font-medium">
+            Vue d'ensemble de votre activité commerciale
+          </p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button (click)="refreshData()" 
+                  class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center space-x-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            <span>Actualiser</span>
+          </button>
+          
+          <!-- Debug info temporaire -->
+          <div class="text-sm text-slate-600 bg-slate-100 px-3 py-2 rounded-lg">
+            État: {{ isAuthenticated ? 'Connecté' : 'Non connecté' }} | 
+            Type: {{ authService.getUserType() || 'Aucun' }} |
+            Mode: {{ showDemoData ? 'Demo' : 'Réel' }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bannière d'information pour les données de démonstration -->
+    <div *ngIf="showDemoData || !isAuthenticated" class="mb-8">
+      <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6">
+        <div class="flex items-center space-x-4">
+          <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-amber-800 mb-1">Mode Démonstration</h3>
+            <p class="text-amber-700">
+              <span *ngIf="!isAuthenticated">Vous n'êtes pas connecté. </span>
+              <span *ngIf="connectionError">Problème de connexion au serveur. </span>
+              Les données affichées sont des exemples de démonstration.
+              <span *ngIf="!isAuthenticated">
+                <a [routerLink]="['/admin/login']" class="underline font-semibold hover:text-amber-900 ml-1">
+                  Connectez-vous
+                </a> pour voir les vraies données.
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner Global -->
+    <div *ngIf="isLoading" class="flex justify-center items-center py-20">
+      <div class="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl">
+        <div class="flex items-center space-x-4">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          <span class="text-lg font-medium text-slate-700">Chargement du tableau de bord...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenu principal du dashboard -->
+    <div *ngIf="!isLoading" class="space-y-8">
+      
+      <!-- Statistiques Générales -->
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Chiffre d'Affaires -->
+        <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-6 transform transition-all duration-300 hover:shadow-3xl hover:scale-105">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-slate-600 mb-1">Chiffre d'Affaires Mensuel</p>
+              <p class="text-3xl font-bold text-slate-800">{{ formatCurrency(generalStats?.chiffreAffaires || 0) }}</p>
+              <p class="text-sm text-green-600 font-medium mt-1">
+                <span class="inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                  </svg>
+                  {{ formatNumber(generalStats?.totalArticles || 0) }} articles
+                </span>
+              </p>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nombre de Ventes -->
+        <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-6 transform transition-all duration-300 hover:shadow-3xl hover:scale-105">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-slate-600 mb-1">Total Ventes</p>
+              <p class="text-3xl font-bold text-slate-800">{{ formatNumber(generalStats?.nombreVentes || 0) }}</p>
+              <p class="text-sm text-blue-600 font-medium mt-1">
+                <span class="inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                  </svg>
+                  {{ formatNumber(generalStats?.totalLots || 0) }} lots
+                </span>
+              </p>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stock Total -->
+        <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-6 transform transition-all duration-300 hover:shadow-3xl hover:scale-105">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-slate-600 mb-1">Stock Total</p>
+              <p class="text-3xl font-bold text-slate-800">{{ formatNumber(generalStats?.stockTotal || 0) }}</p>
+              <p class="text-sm text-orange-600 font-medium mt-1">
+                <span class="inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                  </svg>
+                  {{ formatNumber(alertesStock.length || 0) }} alertes
+                </span>
+              </p>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sociétés Actives -->
+        <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-6 transform transition-all duration-300 hover:shadow-3xl hover:scale-105">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-slate-600 mb-1">Total Sociétés</p>
+              <p class="text-3xl font-bold text-slate-800">{{ formatNumber(generalStats?.totalSocietes || 0) }}</p>
+              <p class="text-sm text-purple-600 font-medium mt-1">
+                <span class="inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                  </svg>
+                  {{ formatNumber(generalStats?.totalVendeurs || 0) }} vendeurs
+                </span>
+              </p>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alertes et Notifications -->
+      <section *ngIf="alertesStock && alertesStock.length > 0" class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-800">Alertes Stock</h2>
+          <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">{{ alertesStock.length }}</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div *ngFor="let alerte of alertesStock" class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-4 border border-red-200">
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="font-semibold text-slate-800">{{ alerte.nomArticle }}</h4>
+              <span class="bg-red-500 text-white px-2 py-1 rounded-lg text-xs font-semibold">URGENT</span>
+            </div>
+            <p class="text-sm text-slate-600 mb-2">{{ alerte.description }}</p>
+            <div class="flex items-center text-sm text-red-600 font-medium">
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+              </svg>
+              Stock: {{ alerte.quantiteRestante }} unités
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lots en Expiration -->
+      <section *ngIf="lotsExpirationProches && lotsExpirationProches.length > 0" class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-800">Lots en Expiration</h2>
+          <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold">{{ lotsExpirationProches.length }}</span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div *ngFor="let lot of lotsExpirationProches" class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl p-4 border border-amber-200">
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="font-semibold text-slate-800">{{ lot.nomArticle }}</h4>
+              <span class="bg-amber-500 text-white px-2 py-1 rounded-lg text-xs font-semibold">{{ lot.joursRestants }}j</span>
+            </div>
+            <p class="text-sm text-slate-600 mb-2">Lot: {{ lot.numeroLot }}</p>
+            <div class="flex items-center text-sm text-amber-600 font-medium">
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0h6l2 13H6L8 7z"></path>
+              </svg>
+              Expire: {{ lot.dateExpiration | date:'dd/MM/yyyy' }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Top Articles Vendus -->
+      <section class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-800">Top Articles Vendus</h2>
+        </div>
+
+        <div class="overflow-hidden rounded-2xl">
+          <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-4">
+            <div class="grid grid-cols-4 gap-4 text-white font-semibold">
+              <span>Article</span>
+              <span>Quantité Vendue</span>
+              <span>Chiffre d'Affaires</span>
+              <span>Tendance</span>
+            </div>
+          </div>
+          <div class="divide-y divide-slate-200">
+            <div *ngFor="let article of topArticles; let i = index" 
+                 class="px-6 py-4 hover:bg-slate-50 transition-colors duration-200">
+              <div class="grid grid-cols-4 gap-4 items-center">
+                <div class="flex items-center space-x-3">
+                  <span class="w-8 h-8 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-sm">
+                    {{ i + 1 }}
+                  </span>
+                  <span class="font-semibold text-slate-800">{{ article.nom }}</span>
+                </div>
+                <span class="text-slate-600 font-medium">{{ formatNumber(article.quantiteVendue) }}</span>
+                <span class="text-slate-800 font-semibold">{{ formatCurrency(article.chiffreAffaires || 0) }}</span>
+                <div class="flex items-center">
+                  <svg class="w-4 h-4 text-green-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                  </svg>
+                  <span class="text-green-600 font-medium">{{ formatPercentage(article.tendance || 0) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Performances Vendeurs -->
+      <section class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-800">Performances Vendeurs</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div *ngFor="let vendeur of performancesVendeurs" 
+               class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-6 border border-indigo-200 transform transition-all duration-300 hover:scale-105">
+            <div class="flex items-center space-x-4 mb-4">
+              <img [src]="'https://ui-avatars.com/api/?name=' + vendeur.nom + '&background=6366F1&color=fff'" 
+                   class="w-12 h-12 rounded-full shadow-lg" [alt]="vendeur.nom">
+              <div>
+                <h4 class="font-bold text-slate-800">{{ vendeur.nom }}</h4>
+                <p class="text-sm text-slate-600">{{ vendeur.email }}</p>
+              </div>
+            </div>
+            
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <span class="text-sm font-medium text-slate-600">Ventes</span>
+                <span class="font-bold text-slate-800">{{ formatNumber(vendeur.nombreVentes) }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm font-medium text-slate-600">CA Généré</span>
+                <span class="font-bold text-slate-800">{{ formatCurrency(vendeur.chiffreAffaires) }}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm font-medium text-slate-600">Performance</span>
+                <div class="flex items-center">
+                  <div class="w-16 bg-slate-200 rounded-full h-2 mr-2">
+                    <div class="bg-indigo-500 h-2 rounded-full" [style.width.%]="vendeur.performance"></div>
+                  </div>
+                  <span class="text-sm font-semibold text-indigo-600">{{ formatPercentage(vendeur.performance) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
